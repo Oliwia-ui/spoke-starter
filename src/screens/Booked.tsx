@@ -55,6 +55,7 @@ export function Booked({ service, day, time, name, phone, reference, onDone }: B
         title={`You're all set, ${firstName}!`}
         subtitle={`Your repair is booked. See you ${when(day, time)}.`}
         focusOnMount
+        centered
       />
 
       {/* Starts after the Success mark has drawn its check (about 800ms). */}

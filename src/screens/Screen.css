@@ -34,6 +34,10 @@
   gap: var(--space-4);
 }
 
+.screen-header--centered {
+  text-align: center;
+}
+
 .screen-header__title {
   margin: 0;
   font: var(--font-screen-title);

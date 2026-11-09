@@ -27,16 +27,18 @@ type ScreenHeaderProps = {
   subtitle?: string
   /** Move focus to the title when shown, so screen readers announce it. */
   focusOnMount?: boolean
+  /** Centre the title and subtitle, for example under the Success mark on 04. */
+  centered?: boolean
 }
 
-export function ScreenHeader({ title, subtitle, focusOnMount = false }: ScreenHeaderProps) {
+export function ScreenHeader({ title, subtitle, focusOnMount = false, centered = false }: ScreenHeaderProps) {
   const titleRef = useRef<HTMLHeadingElement>(null)
   useEffect(() => {
     if (focusOnMount) titleRef.current?.focus()
   }, [focusOnMount])
 
   return (
-    <div className="screen-header">
+    <div className={`screen-header${centered ? ' screen-header--centered' : ''}`}>
       <h1 className="screen-header__title" ref={titleRef} tabIndex={focusOnMount ? -1 : undefined}>
         {title}
       </h1>
