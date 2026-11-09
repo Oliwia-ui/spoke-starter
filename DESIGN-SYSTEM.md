@@ -256,7 +256,7 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
   - Default: 1px `--color-border`
   - Focus: 2px `--color-brand`
 - Placeholder and value: `Card/Body`, placeholder in `--color-text-muted`
-- The placeholder disappears as soon as the field is focused (code only; the Figma Focus variant still shows it)
+- The placeholder disappears as soon as the field is focused. In Figma, the Focus variant hides the placeholder (opacity 0, so the field keeps its height) and shows a 1×20 "Cursor" in `color/text/primary`.
 - **In code:** use a real `<label>` and `<input>` with matching `id` and `htmlFor`.
 
 **Error state** (`State=Error`, node `2009:76`, Figma text property "Error message"): pass `error="Enter your name"`.
