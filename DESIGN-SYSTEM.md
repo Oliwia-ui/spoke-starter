@@ -297,6 +297,8 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
 - Tags row: gap `--space-8`, contains one Tag (duration)
 - **In code:** make it selectable, either a `<button>` or a radio input styled as a card.
 
+**Hover (code only, not in Figma yet):** the card floats up `--lift-hover` (4px) with `--shadow-raised`, over `--duration-fast` (180ms) with `--ease-out`, and settles back when pressed. It only applies on devices with a real hover (`@media (hover: hover)`). With `prefers-reduced-motion` the card doesn't move. To add it to Figma, create a `State=Hover` variant with a drop shadow (0 8 20, 10% `#1a1a1a`, plus 0 2 6, 6%) and a Smart Animate "While hovering" interaction.
+
 ### Summary row (`11:34`)
 *"One line of the booking summary on screen 03."*
 
