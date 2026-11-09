@@ -1,0 +1,6 @@
+/* Service list (12:23): gap 12 */
+.service-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}

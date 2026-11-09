@@ -160,20 +160,32 @@ These live on the `Spoke starter kit` page in the `Components` section (3:25). B
 | Tag | `3:27` | [`Tag.tsx`](src/components/Tag.tsx) | ✅ Built |
 | Booking card (demo) | `3:34` | [`BookingCard.tsx`](src/components/BookingCard.tsx) | ✅ Built |
 | Booking card, sloppy (demo) | `4:6` | [`BookingCardSloppy.tsx`](src/components/BookingCardSloppy.tsx) | ✅ Built as-is, don't reuse |
-| Time slot | `6:14` | n/a | To do |
-| Input | `6:23` | n/a | To do |
-| Top bar | `6:24` | n/a | To do |
-| Service card | `11:33` | n/a | To do |
-| Summary row | `11:34` | n/a | To do |
-| Action bar | `11:37` | n/a | To do |
+| Time slot | `6:14` | [`TimeSlot.tsx`](src/components/TimeSlot.tsx) | ✅ Built |
+| Input | `6:23` | [`Input.tsx`](src/components/Input.tsx) | ✅ Built |
+| Top bar | `6:24` | [`TopBar.tsx`](src/components/TopBar.tsx) | ✅ Built |
+| Service card | `11:33` | [`ServiceCard.tsx`](src/components/ServiceCard.tsx) | ✅ Built |
+| Summary row | `11:34` | [`SummaryRow.tsx`](src/components/SummaryRow.tsx) | ✅ Built |
+| Action bar | `11:37` | [`ActionBar.tsx`](src/components/ActionBar.tsx) | ✅ Built |
 
-| Screen | Figma node | Status |
-|---|---|---|
-| 01 Choose a service | `7:114` | To do (build first) |
-| 02 Pick a slot | `7:121` | To do |
-| 03 Confirm | `7:128` | To do |
+| Screen | Figma node | Code | Status |
+|---|---|---|---|
+| 01 Choose a service | `7:114` | [`ChooseService.tsx`](src/screens/ChooseService.tsx) | ✅ Built |
+| 02 Pick a slot | `7:121` | [`PickSlot.tsx`](src/screens/PickSlot.tsx) | ✅ Built |
+| 03 Confirm | `7:128` | [`Confirm.tsx`](src/screens/Confirm.tsx) | ✅ Built |
+| Booked (not in Figma) | n/a | [`Booked.tsx`](src/screens/Booked.tsx) | Placeholder end of flow |
 
 Update this table when you build something.
+
+**Code structure:**
+- `src/components/`: one file per Figma component, plus its `.css`.
+- `src/screens/`: one file per Figma screen. `Screen.tsx` holds the shared layout (Top bar, scrolling Content, Action bar) and the Header, Section and Note pieces.
+- `src/data/booking.ts`: services, days and times from the brief and screen 02.
+- `src/App.tsx`: the flow state (step, service, day, time). The defaults match the Figma screens: Flat tyre repair, Today, 16:30.
+
+**Deliberate differences from Figma:**
+- Selected Service card, selected Time slot and focused Input keep the same outer size as the default state. In Figma they grow or shrink by 2px. Matching that would make the layout jump when you click.
+- Input focus comes from the browser's `:focus`, not a prop.
+- The Booked screen isn't designed in Figma. It reuses existing components only.
 
 ### Button (`3:33`)
 *"Primary for the main action on a card, Secondary for anything else."*

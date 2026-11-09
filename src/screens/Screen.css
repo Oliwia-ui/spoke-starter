@@ -1,0 +1,72 @@
+/* Screen frames 7:114, 7:121, 7:128: 390 × 844 */
+.screen {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 390px;
+  height: min(844px, 100svh);
+  background: var(--color-surface);
+  /* Figma draws the frame stroke on top of the content without taking space,
+     so use an inset outline rather than a border. */
+  outline: var(--border-width) solid var(--color-border);
+  outline-offset: calc(var(--border-width) * -1);
+  letter-spacing: var(--letter-spacing);
+  text-align: left;
+  overflow: hidden;
+}
+
+/* Content: padding 20, gap 16, takes the remaining height and scrolls */
+.screen__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-16);
+  min-height: 0;
+  padding: var(--space-20);
+  overflow-y: auto;
+}
+
+/* Header: title + optional subtitle, gap 4 */
+.screen-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.screen-header__title {
+  margin: 0;
+  font: var(--font-screen-title);
+  color: var(--color-text-primary);
+}
+
+.screen-header__subtitle {
+  margin: 0;
+  font: var(--font-card-body);
+  color: var(--color-text-muted);
+}
+
+/* Section ("Day", "Drop-off time"): label + wrapping row, gap 8 */
+.screen-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.screen-section__label {
+  margin: 0;
+  font: var(--font-label-field);
+  color: var(--color-text-primary);
+}
+
+.screen-section__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.screen-note {
+  margin: 0;
+  font: var(--font-card-caption);
+  color: var(--color-text-muted);
+}

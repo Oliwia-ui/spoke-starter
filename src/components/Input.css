@@ -1,0 +1,40 @@
+/*
+ * Figma "Input" (node 6:23): State=Default (6:15), State=Focus (6:19).
+ * Focus swaps the 1px border for a 2px brand border. Padding drops by 1px
+ * so the field doesn't grow when focused.
+ */
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  letter-spacing: var(--letter-spacing);
+}
+
+.input__label {
+  font: var(--font-label-field);
+  color: var(--color-text-primary);
+}
+
+.input__field {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: var(--space-12) var(--space-16);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  font: var(--font-card-body);
+  letter-spacing: var(--letter-spacing);
+  color: var(--color-text-primary);
+}
+
+.input__field::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+
+.input__field:focus {
+  outline: none;
+  padding: calc(var(--space-12) - var(--border-width)) calc(var(--space-16) - var(--border-width));
+  border: var(--border-width-strong) solid var(--color-brand);
+}

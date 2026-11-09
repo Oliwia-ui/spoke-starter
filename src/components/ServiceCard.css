@@ -1,0 +1,58 @@
+/*
+ * Figma "Service card" (node 11:33): State=Default (11:17), State=Selected (11:25).
+ * Selected swaps the 1px border for a 2px brand border. Padding drops by 1px
+ * so the card keeps its size and the list doesn't jump when you select.
+ */
+.service-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-8);
+  margin: 0;
+  padding: var(--space-16);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font: inherit;
+  letter-spacing: var(--letter-spacing);
+  text-align: left;
+  cursor: pointer;
+}
+
+.service-card--selected {
+  padding: calc(var(--space-16) - var(--border-width));
+  border: var(--border-width-strong) solid var(--color-brand);
+}
+
+.service-card:focus-visible {
+  outline: var(--border-width-strong) solid var(--color-brand);
+  outline-offset: var(--border-width-strong);
+}
+
+.service-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  width: 100%;
+  font: var(--font-card-title);
+  color: var(--color-text-primary);
+}
+
+.service-card__title {
+  flex: 1;
+  min-width: 0;
+}
+
+.service-card__price {
+  white-space: nowrap;
+}
+
+.service-card__description {
+  font: var(--font-card-body);
+  color: var(--color-text-muted);
+}
+
+.service-card__tags {
+  display: flex;
+  gap: var(--space-8);
+}
