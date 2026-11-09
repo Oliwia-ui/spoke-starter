@@ -33,6 +33,13 @@
   opacity: 1;
 }
 
+/* Hide the placeholder as soon as the field is focused, so it's clear the
+   field is ready to type in. The label above still says what goes here. */
+.input__field:focus::placeholder,
+.input__field--focus::placeholder {
+  color: transparent;
+}
+
 /* Focus and Error both use a 2px border with 1px less padding, so the
    field never changes size. */
 .input__field:focus,
