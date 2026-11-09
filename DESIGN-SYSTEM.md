@@ -89,14 +89,11 @@ All text uses **Inter** with letter spacing 0.
 
 ---
 
-## 3. Ready-to-paste `src/styles/tokens.css`
+## 3. `src/styles/tokens.css`
 
-Creating `tokens.css` is step 5 of the class exercise, so the file doesn't exist yet. When you get there, this block is the full set:
+The tokens live in [`src/styles/tokens.css`](src/styles/tokens.css), which is imported in `src/main.tsx`. Inter is loaded in `index.html`. This is the full set, for reference:
 
 ```css
-/* Spoke design tokens, generated from Figma variables (file KclDEc71ziHXMHyVvPn3P0) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
 :root {
   /* Colour */
   --color-surface: #ffffff;
@@ -136,6 +133,8 @@ Creating `tokens.css` is step 5 of the class exercise, so the file doesn't exist
   --font-label-field: 500 14px/20px var(--font-family);
   --font-label-tag: 500 13px/18px var(--font-family);
 
+  --letter-spacing: 0;
+
   /* State */
   --opacity-disabled: 0.5;
 }
@@ -143,13 +142,38 @@ Creating `tokens.css` is step 5 of the class exercise, so the file doesn't exist
 
 Use the shorthand like this: `font: var(--font-card-title);`
 
-> The current `src/index.css` is still the Vite starter, with purple accent and system fonts. Replace or clean it up once `tokens.css` is in place, or its `h1`/`h2` styles will override yours.
+The `font` shorthand doesn't reset letter spacing, so also set `letter-spacing: var(--letter-spacing);` on a component's root.
+
+> `src/index.css` is still the Vite starter. It sets 0.18px letter spacing on `:root`, adds `h1`/`h2` styles, and switches to a dark background in dark mode. Components must reset letter spacing (see above) until it's cleaned up.
 
 ---
 
 ## 4. Components
 
-These live on the `Spoke starter kit` page in the `Components` section (3:25). Build each one in `src/components/<Name>.tsx`.
+These live on the `Spoke starter kit` page in the `Components` section (3:25). Build each one in `src/components/<Name>.tsx` with a matching `<Name>.css`.
+
+### Build status
+
+| Component | Figma node | Code | Status |
+|---|---|---|---|
+| Button | `3:33` | [`Button.tsx`](src/components/Button.tsx) | ✅ Built |
+| Tag | `3:27` | [`Tag.tsx`](src/components/Tag.tsx) | ✅ Built |
+| Booking card (demo) | `3:34` | [`BookingCard.tsx`](src/components/BookingCard.tsx) | ✅ Built |
+| Booking card, sloppy (demo) | `4:6` | [`BookingCardSloppy.tsx`](src/components/BookingCardSloppy.tsx) | ✅ Built as-is, don't reuse |
+| Time slot | `6:14` | n/a | To do |
+| Input | `6:23` | n/a | To do |
+| Top bar | `6:24` | n/a | To do |
+| Service card | `11:33` | n/a | To do |
+| Summary row | `11:34` | n/a | To do |
+| Action bar | `11:37` | n/a | To do |
+
+| Screen | Figma node | Status |
+|---|---|---|
+| 01 Choose a service | `7:114` | To do (build first) |
+| 02 Pick a slot | `7:121` | To do |
+| 03 Confirm | `7:128` | To do |
+
+Update this table when you build something.
 
 ### Button (`3:33`)
 *"Primary for the main action on a card, Secondary for anything else."*
@@ -158,6 +182,9 @@ These live on the `Spoke starter kit` page in the `Components` section (3:25). B
 |---|---|
 | `label` | string, default "Book this repair" |
 | `variant` | `Primary` \| `Secondary` |
+| `fullWidth` | boolean (code only), stretches to the container |
+
+Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} />`
 
 | Part | Primary (`3:29`) | Secondary (`3:31`) |
 |---|---|---|
@@ -272,7 +299,7 @@ These live on the `Spoke starter kit` page in the `Components` section (3:25). B
 
 ### Booking card (`3:34`, on the `Sloppy vs clean` page)
 
-This is a demo card, not a library component. It shows how the pieces combine.
+This is a demo card, not a library component. It shows how the pieces combine. In code it's `<BookingCard />`, with props `title`, `description`, `tags`, `price`, `nextSlot`, `buttonLabel` and `onBook`.
 
 - Column layout with gap `--space-16`, padding `--space-24`, radius `--radius-lg`, 1px `--color-border`, `--color-surface` background. It's 360px wide.
 - **Header** (gap `--space-4`): title `Card/Title` "Flat tyre repair", description `Card/Body` muted
@@ -401,3 +428,8 @@ The `Sloppy vs clean` page shows the same booking card built two ways. The slopp
 - Button and Tag components with a Label property
 
 That's why the rules in section 1 exist. Useful material for `REFLECTION.md`.
+
+Both are built in code and shown in `App.tsx`. They render identically and match Figma to the pixel, but compare the code:
+
+- `BookingCardSloppy.css`: 10 absolutely positioned layers, about 20 hardcoded values, and a "button" that is a rectangle with text on top. Changing one word breaks the layout.
+- `BookingCard.tsx`: flexbox, tokens only, a real `<button>`, reusable `Button` and `Tag` components, and content passed in as props.
