@@ -1,0 +1,133 @@
+/*
+ * Figma "Frame 47" (node 4:6). Values are copied 1:1 from the sloppy frame,
+ * which uses no variables, so they are hardcoded here on purpose.
+ * Positions are relative to the inside of the 1px border.
+ */
+.sloppy-card {
+  position: relative;
+  box-sizing: border-box;
+  width: 360px;
+  height: 248px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e4e0d8;
+  border-radius: 16px;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.sloppy-card p {
+  position: absolute;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.sloppy-card > div {
+  position: absolute;
+}
+
+/* Text 3: title */
+.sloppy-card__text-3 {
+  left: 24px;
+  top: 24px;
+  width: 310px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  color: #1a1a1a;
+}
+
+/* Text 4: description */
+.sloppy-card__text-4 {
+  left: 24px;
+  top: 56px;
+  width: 310px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #6b6660;
+}
+
+/* Rectangle 12 + Text 5: "30 min" pill */
+.sloppy-card__rectangle-12 {
+  left: 24px;
+  top: 95px;
+  width: 67px;
+  height: 26px;
+  border-radius: 13px;
+  background: #fcebe4;
+}
+
+.sloppy-card__text-5 {
+  left: 36px;
+  top: 99px;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #b23e16;
+}
+
+/* Rectangle 13 + Text 6: "All bikes" pill */
+.sloppy-card__rectangle-13 {
+  left: 99px;
+  top: 95px;
+  width: 76px;
+  height: 26px;
+  border-radius: 13px;
+  background: #fcebe4;
+}
+
+.sloppy-card__text-6 {
+  left: 111px;
+  top: 99px;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #b23e16;
+}
+
+/* Text 7: price */
+.sloppy-card__text-7 {
+  left: 298px;
+  top: 94px;
+  white-space: nowrap;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  color: #1a1a1a;
+}
+
+/* Text 8: next slot */
+.sloppy-card__text-8 {
+  left: 24px;
+  top: 138px;
+  width: 310px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #6b6660;
+}
+
+/* Rectangle 14 + Text 9: fake button (a shape with text on top) */
+.sloppy-card__rectangle-14 {
+  left: 24px;
+  top: 174px;
+  width: 310px;
+  height: 48px;
+  border-radius: 12px;
+  background: #e8552b;
+}
+
+.sloppy-card__text-9 {
+  left: 118px;
+  top: 186px;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #ffffff;
+}

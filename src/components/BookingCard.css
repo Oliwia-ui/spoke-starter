@@ -1,0 +1,64 @@
+/* Figma "Booking card" (node 3:34) */
+.booking-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 360px;
+  padding: var(--space-24);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  letter-spacing: var(--letter-spacing);
+  text-align: left;
+}
+
+.booking-card p,
+.booking-card h3 {
+  margin: 0;
+}
+
+/* Header (3:35) */
+.booking-card__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.booking-card__title {
+  font: var(--font-card-title);
+  color: var(--color-text-primary);
+}
+
+.booking-card__description {
+  font: var(--font-card-body);
+  color: var(--color-text-muted);
+}
+
+/* Meta (3:38) */
+.booking-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+/* Tags (3:39) */
+.booking-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.booking-card__price {
+  font: var(--font-card-title);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* Next slot (3:45) */
+.booking-card__next-slot {
+  font: var(--font-card-caption);
+  color: var(--color-text-muted);
+}
