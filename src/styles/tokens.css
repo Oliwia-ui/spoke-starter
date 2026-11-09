@@ -14,6 +14,8 @@
   --color-on-brand: #ffffff;
   --color-tag-background: #fcebe4;
   --color-tag-text: #b23e16;
+  /* Not in Figma yet: added for the Input error state. 5.9:1 contrast on white. */
+  --color-error: #c81e1e;
 
   /* Spacing */
   --space-4: 4px;

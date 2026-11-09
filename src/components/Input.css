@@ -33,9 +33,24 @@
   opacity: 1;
 }
 
+/* Focus and Error both use a 2px border with 1px less padding, so the
+   field never changes size. */
 .input__field:focus,
-.input__field--focus {
+.input__field--focus,
+.input__field--error {
   outline: none;
   padding: calc(var(--space-12) - var(--border-width)) calc(var(--space-16) - var(--border-width));
   border: var(--border-width-strong) solid var(--color-brand);
+}
+
+/* Error (not in Figma yet): red border, stays red while focused. */
+.input__field--error,
+.input__field--error:focus {
+  border-color: var(--color-error);
+}
+
+.input__error {
+  margin: 0;
+  font: var(--font-card-caption);
+  color: var(--color-error);
 }

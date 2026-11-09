@@ -37,6 +37,7 @@ const colours = [
   { token: '--color-on-brand', figma: 'color/on-brand' },
   { token: '--color-tag-background', figma: 'color/tag/background' },
   { token: '--color-tag-text', figma: 'color/tag/text' },
+  { token: '--color-error', figma: 'Not in Figma yet' },
 ]
 
 const typeStyles = [
@@ -221,7 +222,11 @@ export function ComponentGallery() {
           </Variant>
         </Entry>
 
-        <Entry name="Input" nodeId="6:23" description="Text field with a label above it. Focus shows the brand border.">
+        <Entry
+          name="Input"
+          nodeId="6:23"
+          description="Text field with a label above it. Focus shows the brand border. Error (not in Figma yet) shows when a required field is left empty."
+        >
           <Variant label="Default">
             <div className="gallery-fixed-width">
               <Input label="Your name" placeholder="First and last name" />
@@ -230,6 +235,11 @@ export function ComponentGallery() {
           <Variant label="Focus">
             <div className="gallery-fixed-width">
               <Input label="Your name" placeholder="First and last name" state="Focus" />
+            </div>
+          </Variant>
+          <Variant label="Error (not in Figma)">
+            <div className="gallery-fixed-width">
+              <Input label="Your name" placeholder="First and last name" error="Enter your name" />
             </div>
           </Variant>
         </Entry>
