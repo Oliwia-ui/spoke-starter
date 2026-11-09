@@ -32,9 +32,10 @@
 }
 
 /*
- * Hover (code only, not in Figma yet): the card floats up 4px with a soft
- * shadow, and settles back down when pressed. Only on devices with a real
- * hover (mouse or trackpad), so it doesn't stick on touch screens.
+ * Hover (Figma State=Hover): an unselected card floats up 4px with a soft
+ * shadow, and settles back down when pressed. The selected card doesn't
+ * float. Only on devices with a real hover (mouse or trackpad), so it
+ * doesn't stick on touch screens.
  */
 @media (hover: hover) {
   .service-card {
@@ -43,12 +44,13 @@
       box-shadow var(--duration-fast) var(--ease-out);
   }
 
-  .service-card:hover {
+  /* Only unselected cards float; the selected card stays put. */
+  .service-card:not(.service-card--selected):hover {
     transform: translateY(var(--lift-hover));
     box-shadow: var(--shadow-raised);
   }
 
-  .service-card:active {
+  .service-card:not(.service-card--selected):active {
     transform: translateY(0);
     box-shadow: none;
   }

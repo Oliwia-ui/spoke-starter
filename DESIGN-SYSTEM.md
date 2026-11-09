@@ -297,7 +297,9 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
 - Tags row: gap `--space-8`, contains one Tag (duration)
 - **In code:** make it selectable, either a `<button>` or a radio input styled as a card.
 
-**Hover (code only, not in Figma yet):** the card floats up `--lift-hover` (4px) with `--shadow-raised`, over `--duration-fast` (180ms) with `--ease-out`, and settles back when pressed. It only applies on devices with a real hover (`@media (hover: hover)`). With `prefers-reduced-motion` the card doesn't move. To add it to Figma, create a `State=Hover` variant with a drop shadow (0 8 20, 10% `#1a1a1a`, plus 0 2 6, 6%) and a Smart Animate "While hovering" interaction.
+**Hover** (`State=Hover`, node `2010:76`): an **unselected** card floats up `--lift-hover` (4px) with `--shadow-raised`, over `--duration-fast` (180ms) with `--ease-out`, and settles back when pressed. **The selected card doesn't float.**
+- Code: only on devices with a real hover (`@media (hover: hover)`). With `prefers-reduced-motion` the card doesn't move but keeps the shadow.
+- Figma: the effect style `Elevation/Raised` (0 8 20 at 10% `#1a1a1a`, plus 0 2 6 at 6%) is on the Hover variant. `State=Default` has a "While hovering" interaction, Change to Hover with Smart Animate, 180ms, bezier(0.2, 0, 0, 1). `State=Selected` has no interaction. The 4px lift exists only in code; Figma shows the shadow.
 
 ### Summary row (`11:34`)
 *"One line of the booking summary on screen 03."*
@@ -433,7 +435,7 @@ Use these with the Figma MCP (`get_design_context` with file key `KclDEc71ziHXMH
 | Time slot / Default / Selected / Disabled | `6:14` / `6:8` / `6:10` / `6:12` |
 | Input / Default / Focus / Error | `6:23` / `6:15` / `6:19` / `2009:76` |
 | Top bar | `6:24` |
-| Service card / Default / Selected | `11:33` / `11:17` / `11:25` |
+| Service card / Default / Hover / Selected | `11:33` / `11:17` / `2010:76` / `11:25` |
 | Summary row | `11:34` |
 | Action bar | `11:37` |
 | Screen 01 Choose a service | `7:114` |

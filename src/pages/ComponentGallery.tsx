@@ -247,7 +247,7 @@ export function ComponentGallery() {
         <Entry
           name="Service card"
           nodeId="11:33"
-          description="One service in the list on screen 01. Selected marks the user's choice. Hover over a card: it floats up (code only, not in Figma yet)."
+          description="One service in the list on screen 01. Selected marks the user's choice. Hover over the Default card: it floats up. The Selected card doesn't."
         >
           <Variant label="Default">
             <div className="gallery-fixed-width">

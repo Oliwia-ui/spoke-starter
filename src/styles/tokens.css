@@ -50,7 +50,10 @@
   /* State */
   --opacity-disabled: 0.5;
 
-  /* Elevation and motion: code only, not in Figma yet. Used for hover. */
+  /* Elevation and motion, used for the Service card hover.
+     Figma: effect style Elevation/Raised, and a 180ms Smart Animate
+     "While hovering" interaction on Service card State=Default.
+     The 4px lift is code only; Figma shows the shadow. */
   --shadow-raised: 0 8px 20px rgb(26 26 26 / 0.1), 0 2px 6px rgb(26 26 26 / 0.06);
   --lift-hover: calc(var(--space-4) * -1);
   --duration-fast: 180ms;
