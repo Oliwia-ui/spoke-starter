@@ -1,0 +1,403 @@
+# Spoke design system
+
+Everything you need to build Spoke from the Figma file without guessing. This was extracted from Figma variables, text styles, and component definitions.
+
+- **Figma file:** [Spoke booking card, sloppy vs clean](https://www.figma.com/design/KclDEc71ziHXMHyVvPn3P0/Demo--Spoke-booking-card--sloppy-vs-clean--Copy-?node-id=0-1)
+- **File key:** `KclDEc71ziHXMHyVvPn3P0`
+- **Pages:** `Sloppy vs clean` (0:1) and `Spoke starter kit` (6:5)
+- **Extracted:** 2026-11-09
+
+> If Figma and this file disagree, Figma wins. Re-extract the values and update this file.
+
+---
+
+## 1. Rules
+
+These come from the Figma brief and `AGENTS.md`:
+
+1. **Use tokens for every colour, spacing, and radius value.** Don't hardcode hex or px values in components.
+2. **Reuse components** from `src/components/` before adding new ones.
+3. **Name components after their Figma component**, for example `Button`, `Tag`, `TimeSlot`, `ServiceCard`.
+4. **Build from Figma frame links, not screenshots**, using the Figma MCP server.
+5. **Use flex or grid layout to mirror Figma auto layout.** Don't position anything absolutely.
+6. **Name things for what they are.** Use `Header`, `Meta`, or `Service list`, not `Frame 47` or `Text 3`.
+
+---
+
+## 2. Design tokens
+
+### Colour
+
+| Figma variable | CSS token | Hex | Used for |
+|---|---|---|---|
+| `color/surface` | `--color-surface` | `#ffffff` | Card, screen, top bar, and action bar backgrounds; Secondary button; default Time slot |
+| `color/text/primary` | `--color-text-primary` | `#1a1a1a` | Titles, prices, field labels, body text on light backgrounds |
+| `color/text/muted` | `--color-text-muted` | `#6b6660` | Descriptions, captions, placeholders, step counter, summary labels |
+| `color/border` | `--color-border` | `#e4e0d8` | 1px borders on cards, inputs, slots, and bars |
+| `color/brand` | `--color-brand` | `#e8552b` | Primary button, selected Time slot, focus and selected borders (2px) |
+| `color/on-brand` | `--color-on-brand` | `#ffffff` | Text on brand backgrounds |
+| `color/tag/background` | `--color-tag-background` | `#fcebe4` | Tag fill |
+| `color/tag/text` | `--color-tag-text` | `#b23e16` | Tag label |
+
+### Spacing
+
+| Figma variable | CSS token | Value |
+|---|---|---|
+| `space/4` | `--space-4` | 4px |
+| `space/8` | `--space-8` | 8px |
+| `space/12` | `--space-12` | 12px |
+| `space/16` | `--space-16` | 16px |
+| `space/20` | `--space-20` | 20px |
+| `space/24` | `--space-24` | 24px |
+
+### Radius
+
+| Figma variable | CSS token | Value | Used for |
+|---|---|---|---|
+| `radius/md` | `--radius-md` | 12px | Button, Time slot, Input field |
+| `radius/lg` | `--radius-lg` | 16px | Booking card, Service card, Summary box |
+| `radius/pill` | `--radius-pill` | 999px | Tag |
+
+### Border widths
+
+These aren't Figma variables, but they're used consistently:
+
+| Use | Width |
+|---|---|
+| Default border (`color/border`) | 1px |
+| Focus or selected border (`color/brand`) | 2px |
+
+### Typography
+
+All text uses **Inter** with letter spacing 0.
+
+| Figma text style | Size / line height | Weight | Used for |
+|---|---|---|---|
+| `Screen/Title` | 28 / 34 | 600 Semi Bold | Screen headings ("Choose a service") |
+| `Card/Title` | 20 / 28 | 600 Semi Bold | Card titles, prices, top bar title |
+| `Card/Body` | 15 / 22 | 400 Regular | Descriptions, input text and placeholders, summary values |
+| `Card/Caption` | 14 / 20 | 400 Regular | Notes, step counter, "Next free slot", summary labels |
+| `Label/Button` | 16 / 24 | 600 Semi Bold | Button labels |
+| `Label/Field` | 14 / 20 | 500 Medium | Input labels, section labels ("Day"), Time slot labels |
+| `Label/Tag` | 13 / 18 | 500 Medium | Tag labels |
+
+### Opacity
+
+| Use | Value |
+|---|---|
+| Disabled Time slot | `opacity: 0.5` |
+
+---
+
+## 3. Ready-to-paste `src/styles/tokens.css`
+
+Creating `tokens.css` is step 5 of the class exercise, so the file doesn't exist yet. When you get there, this block is the full set:
+
+```css
+/* Spoke design tokens, generated from Figma variables (file KclDEc71ziHXMHyVvPn3P0) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  /* Colour */
+  --color-surface: #ffffff;
+  --color-text-primary: #1a1a1a;
+  --color-text-muted: #6b6660;
+  --color-border: #e4e0d8;
+  --color-brand: #e8552b;
+  --color-on-brand: #ffffff;
+  --color-tag-background: #fcebe4;
+  --color-tag-text: #b23e16;
+
+  /* Spacing */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+
+  /* Radius */
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* Border */
+  --border-width: 1px;
+  --border-width-strong: 2px;
+
+  /* Typography */
+  --font-family: 'Inter', system-ui, sans-serif;
+
+  --font-screen-title: 600 28px/34px var(--font-family);
+  --font-card-title: 600 20px/28px var(--font-family);
+  --font-card-body: 400 15px/22px var(--font-family);
+  --font-card-caption: 400 14px/20px var(--font-family);
+  --font-label-button: 600 16px/24px var(--font-family);
+  --font-label-field: 500 14px/20px var(--font-family);
+  --font-label-tag: 500 13px/18px var(--font-family);
+
+  /* State */
+  --opacity-disabled: 0.5;
+}
+```
+
+Use the shorthand like this: `font: var(--font-card-title);`
+
+> The current `src/index.css` is still the Vite starter, with purple accent and system fonts. Replace or clean it up once `tokens.css` is in place, or its `h1`/`h2` styles will override yours.
+
+---
+
+## 4. Components
+
+These live on the `Spoke starter kit` page in the `Components` section (3:25). Build each one in `src/components/<Name>.tsx`.
+
+### Button (`3:33`)
+*"Primary for the main action on a card, Secondary for anything else."*
+
+| Prop | Values |
+|---|---|
+| `label` | string, default "Book this repair" |
+| `variant` | `Primary` \| `Secondary` |
+
+| Part | Primary (`3:29`) | Secondary (`3:31`) |
+|---|---|---|
+| Background | `--color-brand` | `--color-surface` |
+| Border | none | 1px `--color-border` |
+| Text | `--color-on-brand`, `Label/Button` | `--color-text-primary`, `Label/Button` |
+| Padding | `--space-12` vertical, `--space-20` horizontal | same |
+| Radius | `--radius-md` | same |
+| Layout | Centred. Height is 48px when full width | same |
+
+### Tag (`3:27`)
+*"Small label for service facts such as duration or bike type."*
+
+| Prop | Values |
+|---|---|
+| `label` | string, for example "30 min", "All bikes" |
+
+- Background `--color-tag-background`, text `--color-tag-text`, `Label/Tag`
+- Padding `--space-4` vertical, `--space-12` horizontal
+- Radius `--radius-pill`. Height is 26px.
+
+### Time slot (`6:14`)
+*"A pickable day or drop-off time. Selected is the user's choice, Disabled is fully booked."*
+
+| Prop | Values |
+|---|---|
+| `label` | string, for example "16:30", "Today" |
+| `state` | `Default` \| `Selected` \| `Disabled` |
+
+| Part | Default (`6:8`) | Selected (`6:10`) | Disabled (`6:12`) |
+|---|---|---|---|
+| Background | `--color-surface` | `--color-brand` | `--color-surface` |
+| Border | 1px `--color-border` | none | 1px `--color-border` |
+| Text colour | `--color-text-primary` | `--color-on-brand` | `--color-text-muted` |
+| Opacity | 1 | 1 | `0.5` |
+
+- Text style `Label/Field`, padding `--space-12` vertical, `--space-16` horizontal, radius `--radius-md`
+- **In code:** use a `<button>`. Set `aria-pressed` on Selected and `disabled` on Disabled.
+
+### Input (`6:23`)
+*"Text field with a label above it. Focus shows the brand border."*
+
+| Prop | Values |
+|---|---|
+| `label` | string, for example "Your name" |
+| `placeholder` | string, for example "First and last name" |
+| `state` | `Default` \| `Focus` (in code, use `:focus` / `:focus-visible`, not a prop) |
+
+- Column layout with gap `--space-8`
+- Label: `Label/Field`, `--color-text-primary`
+- Field: `--color-surface` background, padding `--space-12` vertical and `--space-16` horizontal, radius `--radius-md`
+  - Default: 1px `--color-border`
+  - Focus: 2px `--color-brand`
+- Placeholder and value: `Card/Body`, placeholder in `--color-text-muted`
+- **In code:** use a real `<label>` and `<input>` with matching `id` and `htmlFor`.
+
+### Top bar (`6:24`)
+*"Screen header with a back arrow, the flow title and the step counter."*
+
+| Prop | Values |
+|---|---|
+| `title` | string, default "Book a repair" |
+| `step` | string, for example "Step 1 of 3" |
+
+- Row layout: gap `--space-12`, padding `--space-16` vertical and `--space-20` horizontal, items centred
+- Background `--color-surface`, **bottom** border 1px `--color-border`
+- Back icon: `src/assets/icons/chevron-left.svg` (24×24, stroke `#1a1a1a`, width 2). Use a `<button aria-label="Back">`.
+- Title: `Card/Title`, `--color-text-primary`, fills the remaining width
+- Step: `Card/Caption`, `--color-text-muted`
+
+### Service card (`11:33`)
+*"One service in the list on screen 01. Selected marks the user's choice."*
+
+| Prop | Values |
+|---|---|
+| `title` | string |
+| `price` | string, for example "€15" |
+| `description` | string |
+| `duration` | string, shown as a Tag |
+| `state` | `Default` \| `Selected` |
+
+- Column layout with gap `--space-8`, padding `--space-16`, radius `--radius-lg`, background `--color-surface`
+- Default: 1px `--color-border`. Selected: 2px `--color-brand`.
+- Header row: title on the left (fills the width) and price on the right, both `Card/Title` in `--color-text-primary`, gap `--space-12`
+- Description: `Card/Body`, `--color-text-muted`
+- Tags row: gap `--space-8`, contains one Tag (duration)
+- **In code:** make it selectable, either a `<button>` or a radio input styled as a card.
+
+### Summary row (`11:34`)
+*"One line of the booking summary on screen 03."*
+
+| Prop | Values |
+|---|---|
+| `label` | string, for example "Service" |
+| `value` | string, for example "Flat tyre repair" |
+
+- Row layout, `justify-content: space-between`, baseline aligned, gap `--space-16`
+- Label: `Card/Caption`, `--color-text-muted`
+- Value: `Card/Body`, `--color-text-primary`
+
+### Action bar (`11:37`)
+*"Bottom area of a screen with the main action. Change the label on the exposed Button."*
+
+| Prop | Values |
+|---|---|
+| `label` | string, passed to the Button |
+
+- Background `--color-surface`, **top** border 1px `--color-border`
+- Padding `--space-16` vertical, `--space-20` horizontal
+- Contains one full-width **Primary Button**
+- Pinned to the bottom of the screen
+
+### Booking card (`3:34`, on the `Sloppy vs clean` page)
+
+This is a demo card, not a library component. It shows how the pieces combine.
+
+- Column layout with gap `--space-16`, padding `--space-24`, radius `--radius-lg`, 1px `--color-border`, `--color-surface` background. It's 360px wide.
+- **Header** (gap `--space-4`): title `Card/Title` "Flat tyre repair", description `Card/Body` muted
+- **Meta** (space-between): Tags row (gap `--space-8`, "30 min", "All bikes") and price `Card/Title`
+- **Next slot**: `Card/Caption` muted, "Next free slot: today at 16:30"
+- **Button**: Primary, full width, "Book this repair"
+
+---
+
+## 5. Screens
+
+These are in the `Screens` section (7:113). Each is a mobile frame, **390 × 844**.
+
+### Shared screen layout
+
+```
+Screen (column, --color-surface, 1px --color-border)
+├── Top bar
+├── Content (column, flex: 1, padding --space-20, gap --space-16, scrolls)
+│   └── Header (column, gap --space-4)
+│       ├── Title    Screen/Title, text/primary
+│       └── Subtitle Card/Body, text/muted   (optional)
+└── Action bar
+```
+
+Section groups such as "Day" and "Drop-off time" are a column with gap `--space-8`. They have a `Label/Field` label in `text/primary`, then a **wrapping** row of items with gap `--space-8`.
+
+### 01 Choose a service (`7:114`), build this first
+
+- Top bar: "Book a repair" / "Step 1 of 3"
+- Header: "Choose a service" / "What does your bike need?"
+- Service list (column, gap `--space-12`):
+
+| Service | Price | Description | Duration | Default state |
+|---|---|---|---|---|
+| Flat tyre repair | €15 | Tube or tyre swap, any wheel size. | 30 min | **Selected** |
+| Brake check and adjust | €25 | Pads, cables and alignment. | 45 min | Default |
+| Gear tune-up | €30 | Smooth shifting on every gear. | 45 min | Default |
+| Full service | €89 | Everything checked, cleaned and adjusted. | 2 hours | Default |
+
+- Action bar: "Continue"
+
+### 02 Pick a slot (`7:121`)
+
+- Top bar: "Book a repair" / "Step 2 of 3"
+- Header: "Pick a drop-off time" / "Flat tyre repair, about 30 minutes"
+- **Day**: Today (Selected), Tomorrow, Mon 16
+- **Drop-off time**: 09:00 (Disabled), 10:30 (Disabled), 12:00, 14:00, 16:30 (Selected), 17:30
+- Note (`Card/Caption`, muted): "Ready the same day. We text you when your bike is done."
+- Action bar: "Continue"
+
+### 03 Confirm (`7:128`)
+
+- Top bar: "Book a repair" / "Step 3 of 3"
+- Header: "Check and confirm" (no subtitle)
+- **Summary** box: column, gap `--space-12`, padding `--space-16`, radius `--radius-lg`, 1px `--color-border`. It contains these Summary rows:
+  - Service: Flat tyre repair
+  - Drop-off: Today at 16:30
+  - Price: €15, pay at pick-up
+- Input: "Your name" / "First and last name"
+- Input: "Phone number" / "+32 470 12 34 56" (shown in Focus state in Figma)
+- Note (`Card/Caption`, muted): "We text you when your bike is ready. You pay when you pick it up."
+- Action bar: "Confirm booking"
+
+---
+
+## 6. Content: services
+
+These come from the brief and are the single source of truth for data:
+
+```ts
+export const services = [
+  { id: 'flat-tyre',  title: 'Flat tyre repair',       price: 15, duration: '30 min',  description: 'Tube or tyre swap, any wheel size.' },
+  { id: 'brakes',     title: 'Brake check and adjust', price: 25, duration: '45 min',  description: 'Pads, cables and alignment.' },
+  { id: 'gears',      title: 'Gear tune-up',           price: 30, duration: '45 min',  description: 'Smooth shifting on every gear.' },
+  { id: 'full',       title: 'Full service',           price: 89, duration: '2 hours', description: 'Everything checked, cleaned and adjusted.' },
+];
+```
+
+Prices display as `€15` (euro sign, no space, no decimals).
+
+---
+
+## 7. Assets
+
+| Asset | Path | Notes |
+|---|---|---|
+| Chevron left | `src/assets/icons/chevron-left.svg` | 24×24, from Figma `icon/chevron-left`. The stroke is hardcoded `#1A1A1A`. Switch it to `currentColor` if you need to recolour it. |
+
+There are no images or other icons in the file.
+
+---
+
+## 8. Figma node ID reference
+
+Use these with the Figma MCP (`get_design_context` with file key `KclDEc71ziHXMHyVvPn3P0`):
+
+| What | Node ID |
+|---|---|
+| Brief | `7:6` |
+| Foundations (swatches, type, spacing) | `7:26` |
+| Components section | `3:25` |
+| Button / Primary / Secondary | `3:33` / `3:29` / `3:31` |
+| Tag | `3:27` |
+| Time slot / Default / Selected / Disabled | `6:14` / `6:8` / `6:10` / `6:12` |
+| Input / Default / Focus | `6:23` / `6:15` / `6:19` |
+| Top bar | `6:24` |
+| Service card / Default / Selected | `11:33` / `11:17` / `11:25` |
+| Summary row | `11:34` |
+| Action bar | `11:37` |
+| Screen 01 Choose a service | `7:114` |
+| Screen 02 Pick a slot | `7:121` |
+| Screen 03 Confirm | `7:128` |
+| Booking card (clean) | `3:34` |
+| Booking card (sloppy, for comparison) | `4:6` |
+
+---
+
+## 9. Sloppy vs clean
+
+The `Sloppy vs clean` page shows the same booking card built two ways. The sloppy version (`4:6`) has no auto layout, uses raw hex values, has layers called "Frame 47" and "Rectangle 12", and has no components. The generated code is all absolute positioning with hardcoded values. The clean version (`3:34`) gives tokenised, flexbox, component-based code. Figma notes the clean version uses:
+
+- Auto layout everywhere
+- Colours, spacing, and radius as variables
+- Layers named for what they are
+- Button and Tag components with a Label property
+
+That's why the rules in section 1 exist. Useful material for `REFLECTION.md`.
