@@ -18,6 +18,10 @@
   height: 80px;
 }
 
+.success-mark--centered {
+  align-self: center;
+}
+
 .success-mark__circle {
   position: relative;
   z-index: 1;

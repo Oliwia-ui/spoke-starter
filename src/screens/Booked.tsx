@@ -49,7 +49,7 @@ export function Booked({ service, day, time, name, phone, reference, onDone }: B
       topBar={<TopBar step="Booked" showBack={false} />}
       actionBar={<ActionBar label="Done" onClick={onDone} />}
     >
-      <SuccessMark />
+      <SuccessMark centered />
 
       <ScreenHeader
         title={`You're all set, ${firstName}!`}

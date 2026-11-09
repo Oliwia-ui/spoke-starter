@@ -12,13 +12,19 @@ import './SuccessMark.css'
  */
 type SuccessMarkProps = {
   label?: string
+  /** Centre the mark in a column layout (screen 04). */
+  centered?: boolean
 }
 
 const BURST_DOTS = 8
 
-export function SuccessMark({ label = 'Booking confirmed' }: SuccessMarkProps) {
+export function SuccessMark({ label = 'Booking confirmed', centered = false }: SuccessMarkProps) {
   return (
-    <div className="success-mark" role="img" aria-label={label}>
+    <div
+      className={`success-mark${centered ? ' success-mark--centered' : ''}`}
+      role="img"
+      aria-label={label}
+    >
       <span className="success-mark__ripple" aria-hidden="true" />
       <span className="success-mark__burst" aria-hidden="true">
         {Array.from({ length: BURST_DOTS }, (_, i) => (

@@ -292,6 +292,7 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
 | Check | 34 × 24, 4.5px round stroke, `--color-brand` (Figma: 24 × 17, 3.5px) |
 | States | `Start` (circle 24px, invisible) → `Done` (circle 64px, visible) |
 | Animation | After 150ms, Smart Animate with a gentle spring, about 450ms |
+| Position | Centred horizontally on screen 04 (`<SuccessMark centered />`). Header and timeline stay left-aligned like the other screens |
 
 - On the Figma canvas, screen 04 shows the mark in its invisible **Start** state. Press **Present** from screen 03 to see it pop in.
 - **In code** (`<SuccessMark />`): the circle springs in from 0.375 scale and fades in (`--duration-slow`, `--ease-spring`, 150ms delay), then the check draws itself. With `prefers-reduced-motion` it shows straight away without moving. It has `role="img"` and `aria-label="Booking confirmed"`. To replay it, change its `key`.
