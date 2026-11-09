@@ -1,0 +1,35 @@
+/* Figma "Button" (node 3:33): Variant=Primary (3:29), Variant=Secondary (3:31) */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--space-12) var(--space-20);
+  border: none;
+  border-radius: var(--radius-md);
+  font: var(--font-label-button);
+  letter-spacing: var(--letter-spacing);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.button:focus-visible {
+  outline: var(--border-width-strong) solid var(--color-brand);
+  outline-offset: var(--border-width-strong);
+}
+
+.button--primary {
+  background: var(--color-brand);
+  color: var(--color-on-brand);
+}
+
+.button--secondary {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  border: var(--border-width) solid var(--color-border);
+}
+
+.button--full-width {
+  width: 100%;
+}

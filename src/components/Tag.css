@@ -1,0 +1,12 @@
+/* Figma "Tag" (node 3:27) */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-pill);
+  background: var(--color-tag-background);
+  color: var(--color-tag-text);
+  font: var(--font-label-tag);
+  letter-spacing: var(--letter-spacing);
+  white-space: nowrap;
+}
