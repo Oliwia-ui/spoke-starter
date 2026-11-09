@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { services } from './data/booking'
+import { ComponentGallery } from './pages/ComponentGallery'
 import { Booked } from './screens/Booked'
 import { ChooseService } from './screens/ChooseService'
 import { Confirm } from './screens/Confirm'
@@ -13,7 +14,24 @@ const DEFAULT_SERVICE = services[0].id
 const DEFAULT_DAY = 'Today'
 const DEFAULT_TIME = '16:30'
 
+/** Tiny hash router: /#/components shows the gallery, anything else the flow. */
+function useHash() {
+  const [hash, setHash] = useState(window.location.hash)
+  useEffect(() => {
+    const onChange = () => setHash(window.location.hash)
+    window.addEventListener('hashchange', onChange)
+    return () => window.removeEventListener('hashchange', onChange)
+  }, [])
+  return hash
+}
+
 function App() {
+  const hash = useHash()
+  if (hash.startsWith('#/components')) return <ComponentGallery />
+  return <BookingFlow />
+}
+
+function BookingFlow() {
   const [step, setStep] = useState<Step>('service')
   const [serviceId, setServiceId] = useState(DEFAULT_SERVICE)
   const [day, setDay] = useState(DEFAULT_DAY)

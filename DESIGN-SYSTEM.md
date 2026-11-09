@@ -176,8 +176,11 @@ These live on the `Spoke starter kit` page in the `Components` section (3:25). B
 
 Update this table when you build something.
 
+**Component gallery:** run `npm run dev` and open **http://localhost:5173/#/components**. It shows every foundation (with the live values from `tokens.css`) and every component in every state, each linked to its Figma node so you can compare. When you add or change a component, add it to [`src/pages/ComponentGallery.tsx`](src/pages/ComponentGallery.tsx) too.
+
 **Code structure:**
 - `src/components/`: one file per Figma component, plus its `.css`.
+- `src/pages/ComponentGallery.tsx`: the gallery page above.
 - `src/screens/`: one file per Figma screen. `Screen.tsx` holds the shared layout (Top bar, scrolling Content, Action bar) and the Header, Section and Note pieces.
 - `src/data/booking.ts`: services, days and times from the brief and screen 02.
 - `src/App.tsx`: the flow state (step, service, day, time). The defaults match the Figma screens: Flat tyre repair, Today, 16:30.
