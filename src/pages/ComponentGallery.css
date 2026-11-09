@@ -227,3 +227,9 @@
   background: var(--color-tag-background);
   border: var(--border-width) solid var(--color-brand);
 }
+
+.gallery-replay {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}

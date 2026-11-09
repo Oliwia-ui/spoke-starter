@@ -70,3 +70,8 @@
   font: var(--font-card-caption);
   color: var(--color-text-muted);
 }
+
+/* A title focused by the app (not by the user) shouldn't show a focus ring. */
+.screen-header__title:focus {
+  outline: none;
+}

@@ -9,20 +9,24 @@ type TopBarProps = {
   title?: string
   step: string
   onBack?: () => void
+  /** Figma "Show back". Turn off on the last screen (04 Booked). */
+  showBack?: boolean
 }
 
-export function TopBar({ title = 'Book a repair', step, onBack }: TopBarProps) {
+export function TopBar({ title = 'Book a repair', step, onBack, showBack = true }: TopBarProps) {
   return (
     <header className="top-bar">
-      <button
-        type="button"
-        className="top-bar__back"
-        aria-label="Back"
-        onClick={onBack}
-        disabled={!onBack}
-      >
-        <img src={chevronLeft} width={24} height={24} alt="" />
-      </button>
+      {showBack && (
+        <button
+          type="button"
+          className="top-bar__back"
+          aria-label="Back"
+          onClick={onBack}
+          disabled={!onBack}
+        >
+          <img src={chevronLeft} width={24} height={24} alt="" />
+        </button>
+      )}
       <p className="top-bar__title">{title}</p>
       <p className="top-bar__step">{step}</p>
     </header>

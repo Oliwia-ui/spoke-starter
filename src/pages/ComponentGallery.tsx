@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { ActionBar } from '../components/ActionBar'
 import { BookingCard } from '../components/BookingCard'
 import { BookingCardSloppy } from '../components/BookingCardSloppy'
@@ -6,6 +6,7 @@ import { Button } from '../components/Button'
 import { Input } from '../components/Input'
 import { ServiceCard } from '../components/ServiceCard'
 import { SummaryRow } from '../components/SummaryRow'
+import { SuccessMark } from '../components/SuccessMark'
 import { Tag } from '../components/Tag'
 import { TimeSlot } from '../components/TimeSlot'
 import { TopBar } from '../components/TopBar'
@@ -86,6 +87,17 @@ function Variant({ label, children }: { label: string; children: ReactNode }) {
       <div className="gallery-variant__preview">{children}</div>
       <figcaption className="gallery-variant__label">{label}</figcaption>
     </figure>
+  )
+}
+
+/** Success mark with a button that remounts it, so the pop-in plays again. */
+function SuccessMarkDemo() {
+  const [run, setRun] = useState(0)
+  return (
+    <div className="gallery-replay">
+      <SuccessMark key={run} />
+      <Button label="Replay" variant="Secondary" onClick={() => setRun((n) => n + 1)} />
+    </div>
   )
 }
 
@@ -280,11 +292,30 @@ export function ComponentGallery() {
           </Variant>
         </Entry>
 
-        <Entry name="Top bar" nodeId="6:24" description="Screen header with a back arrow, the flow title and the step counter.">
+        <Entry
+          name="Top bar"
+          nodeId="6:24"
+          description="Screen header with a back arrow, the flow title and the step counter. Turn off Show back on the last screen."
+        >
           <Variant label="Default">
             <div className="gallery-phone-width">
               <TopBar step="Step 1 of 3" onBack={() => {}} />
             </div>
+          </Variant>
+          <Variant label="Show back off">
+            <div className="gallery-phone-width">
+              <TopBar step="Booked" showBack={false} />
+            </div>
+          </Variant>
+        </Entry>
+
+        <Entry
+          name="Success mark"
+          nodeId="2016:83"
+          description="Success signal at the top of the Booked screen. Pops in when the screen opens. Press Replay to watch it again."
+        >
+          <Variant label="Start → Done">
+            <SuccessMarkDemo />
           </Variant>
         </Entry>
 

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import './Screen.css'
 
 /**
@@ -25,12 +25,21 @@ export function Screen({ topBar, actionBar, children }: ScreenProps) {
 type ScreenHeaderProps = {
   title: string
   subtitle?: string
+  /** Move focus to the title when shown, so screen readers announce it. */
+  focusOnMount?: boolean
 }
 
-export function ScreenHeader({ title, subtitle }: ScreenHeaderProps) {
+export function ScreenHeader({ title, subtitle, focusOnMount = false }: ScreenHeaderProps) {
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  useEffect(() => {
+    if (focusOnMount) titleRef.current?.focus()
+  }, [focusOnMount])
+
   return (
     <div className="screen-header">
-      <h1 className="screen-header__title">{title}</h1>
+      <h1 className="screen-header__title" ref={titleRef} tabIndex={focusOnMount ? -1 : undefined}>
+        {title}
+      </h1>
       {subtitle && <p className="screen-header__subtitle">{subtitle}</p>}
     </div>
   )

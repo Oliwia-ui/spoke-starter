@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { services } from './data/booking'
+import { makeReference, services } from './data/booking'
 import { ComponentGallery } from './pages/ComponentGallery'
 import { Booked } from './screens/Booked'
 import { ChooseService } from './screens/ChooseService'
@@ -37,6 +37,8 @@ function BookingFlow() {
   const [day, setDay] = useState(DEFAULT_DAY)
   const [time, setTime] = useState(DEFAULT_TIME)
   const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [reference, setReference] = useState('')
 
   const service = services.find((s) => s.id === serviceId) ?? services[0]
 
@@ -45,6 +47,8 @@ function BookingFlow() {
     setDay(DEFAULT_DAY)
     setTime(DEFAULT_TIME)
     setName('')
+    setPhone('')
+    setReference('')
     setStep('service')
   }
 
@@ -78,13 +82,23 @@ function BookingFlow() {
           onBack={() => setStep('slot')}
           onConfirm={(details) => {
             setName(details.name)
+            setPhone(details.phone)
+            setReference(makeReference())
             setStep('booked')
           }}
         />
       )}
 
       {step === 'booked' && (
-        <Booked service={service} day={day} time={time} name={name} onRestart={restart} />
+        <Booked
+          service={service}
+          day={day}
+          time={time}
+          name={name}
+          phone={phone}
+          reference={reference}
+          onDone={restart}
+        />
       )}
     </div>
   )

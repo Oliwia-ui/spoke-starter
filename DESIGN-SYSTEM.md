@@ -168,14 +168,14 @@ These live on the `Spoke starter kit` page in the `Components` section (3:25). B
 | Service card | `11:33` | [`ServiceCard.tsx`](src/components/ServiceCard.tsx) | ✅ Built |
 | Summary row | `11:34` | [`SummaryRow.tsx`](src/components/SummaryRow.tsx) | ✅ Built |
 | Action bar | `11:37` | [`ActionBar.tsx`](src/components/ActionBar.tsx) | ✅ Built |
-| Success mark | `2016:83` | n/a | Designed in Figma, to build |
+| Success mark | `2016:83` | [`SuccessMark.tsx`](src/components/SuccessMark.tsx) | ✅ Built |
 
 | Screen | Figma node | Code | Status |
 |---|---|---|---|
 | 01 Choose a service | `7:114` | [`ChooseService.tsx`](src/screens/ChooseService.tsx) | ✅ Built |
 | 02 Pick a slot | `7:121` | [`PickSlot.tsx`](src/screens/PickSlot.tsx) | ✅ Built |
 | 03 Confirm | `7:128` | [`Confirm.tsx`](src/screens/Confirm.tsx) | ✅ Built |
-| 04 Booked | `2017:77` | [`Booked.tsx`](src/screens/Booked.tsx) | Designed in Figma. Code is still the old placeholder, to update |
+| 04 Booked | `2017:77` | [`Booked.tsx`](src/screens/Booked.tsx) | ✅ Built |
 
 Update this table when you build something.
 
@@ -279,7 +279,7 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
 - Back icon: `src/assets/icons/chevron-left.svg` (24×24, stroke `#1a1a1a`, width 2). Use a `<button aria-label="Back">`.
 - Title: `Card/Title`, `--color-text-primary`, fills the remaining width
 - Step: `Card/Caption`, `--color-text-muted`
-- **Show back** (boolean, default on): turn it off on the last screen (04 Booked), where going back makes no sense. In code, leave out `onBack` to hide the arrow.
+- **Show back** (boolean, default on): turn it off on the last screen (04 Booked), where going back makes no sense. In code: `showBack={false}`.
 
 ### Success mark (`2016:83`)
 *"Success signal at the top of the Booked screen. Start pops into Done automatically when the screen opens."*
@@ -293,7 +293,7 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
 | Animation | After 150ms, Smart Animate with a gentle spring, about 450ms |
 
 - On the Figma canvas, screen 04 shows the mark in its invisible **Start** state. Press **Present** from screen 03 to see it pop in.
-- **In code:** scale from about 0.4 and fade in, with a soft overshoot. With `prefers-reduced-motion`, show it straight away without moving. Give it `role="img"` and `aria-label="Booking confirmed"`.
+- **In code** (`<SuccessMark />`): the circle springs in from 0.375 scale and fades in (`--duration-slow`, `--ease-spring`, 150ms delay), then the check draws itself. With `prefers-reduced-motion` it shows straight away without moving. It has `role="img"` and `aria-label="Booking confirmed"`. To replay it, change its `key`.
 
 ### Service card (`11:33`)
 *"One service in the list on screen 01. Selected marks the user's choice."*
@@ -421,7 +421,8 @@ Built from the same pieces as 03, with no new layout:
 - Note: "We've sent a confirmation to {phone}. Need to change it? Reply to the text."
 - Action bar: "Done"
 - Prototype: on 03, **Confirm booking** navigates to 04 (dissolve, 200ms).
-- **Still to decide:** the real shop address (now "Address to confirm") and how booking references are generated.
+- **In code:** the header uses the first name typed on 03, and the title gets focus so screen readers announce it. **Add to calendar** downloads an `.ics` file (`src/data/calendar.ts`) for the drop-off, with the service length. The reference is made up in the browser (`makeReference()`). **Done** returns to screen 01.
+- **Still to decide:** the real shop address (now "Address to confirm", set in `shop` in `src/data/booking.ts`) and how real booking references are generated.
 
 ## 6. Content: services
 
