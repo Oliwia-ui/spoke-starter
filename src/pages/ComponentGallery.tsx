@@ -244,7 +244,7 @@ export function ComponentGallery() {
         <Entry
           name="Time slot"
           nodeId="6:14"
-          description="A pickable day or drop-off time. Selected is the user's choice, Disabled is fully booked."
+          description="A pickable day or drop-off time. Selected is the user's choice, Disabled is fully booked: hover or tap it to see the tooltip."
         >
           <Variant label="Default">
             <TimeSlot label="16:30" />

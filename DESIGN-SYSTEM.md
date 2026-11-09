@@ -168,8 +168,8 @@ These live on the `Spoke starter kit` page in the `Components` section (3:25). B
 | Service card | `11:33` | [`ServiceCard.tsx`](src/components/ServiceCard.tsx) | ✅ Built |
 | Summary row | `11:34` | [`SummaryRow.tsx`](src/components/SummaryRow.tsx) | ✅ Built |
 | Action bar | `11:37` | [`ActionBar.tsx`](src/components/ActionBar.tsx) | ✅ Built |
-| Success mark | `2016:83` | [`SuccessMark.tsx`](src/components/SuccessMark.tsx) | ✅ Built. Code is now 80px with ripple and burst; Figma is still 64px |
-| Timeline | n/a | [`Timeline.tsx`](src/components/Timeline.tsx) | Code only, not in Figma yet |
+| Success mark | `2016:83` | [`SuccessMark.tsx`](src/components/SuccessMark.tsx) | ✅ Built |
+| Timeline step | `2021:126` | [`Timeline.tsx`](src/components/Timeline.tsx) | ✅ Built |
 
 | Screen | Figma node | Code | Status |
 |---|---|---|---|
@@ -240,7 +240,8 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
 | Opacity | 1 | 1 | `0.5` |
 
 - Text style `Label/Field`, padding `--space-12` vertical, `--space-16` horizontal, radius `--radius-md`
-- **In code:** use a `<button>`. Set `aria-pressed` on Selected and `disabled` on Disabled.
+- **Fully booked tooltip (code only, not in Figma yet):** a Disabled slot shows a small dark tooltip, "Fully booked" (`--color-text-primary` background, `--color-surface` text, `Label/Tag`), above the slot on hover and keyboard focus, and for 2.5s after a tap. Disabled slots use `aria-disabled` (not `disabled`), so they stay focusable and screen readers hear the reason through `aria-describedby`. Change the text with `unavailableReason`.
+- **In code:** a `<button role="radio">` with `aria-checked`. Disabled uses `aria-disabled` and the tooltip above.
 
 ### Input (`6:23`)
 *"Text field with a label above it. Focus shows the brand border."*
@@ -287,11 +288,11 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
 
 | Part | Value |
 |---|---|
-| Size | 80 × 80 in code (64 × 64 in Figma, to update) |
+| Size | 80 × 80 |
 | Circle | `--color-tag-background` |
-| Check | 34 × 24, 4.5px round stroke, `--color-brand` (Figma: 24 × 17, 3.5px) |
-| States | `Start` (circle 24px, invisible) → `Done` (circle 64px, visible) |
-| Animation | After 150ms, Smart Animate with a gentle spring, about 450ms |
+| Check | 34 × 24, 4.5px round stroke, `--color-brand` |
+| States | `Start` (invisible) → `Burst` (circle, check, ripple ring at 1.3×, dots out) → `Done` (ring at 1.6× and dots faded out) |
+| Animation | Figma: Start → Burst after 150ms (Smart Animate, gentle spring, 350ms), Burst → Done straight after (ease out, 500ms). Code: see below |
 | Position | Centred horizontally on screen 04 (`<SuccessMark centered />`), with the header centred under it (`<ScreenHeader centered />`). The timeline, summary and note stay left-aligned like the other screens |
 
 - On the Figma canvas, screen 04 shows the mark in its invisible **Start** state. Press **Present** from screen 03 to see it pop in.
@@ -412,7 +413,7 @@ Section groups such as "Day" and "Drop-off time" are a column with gap `--space-
 
 ---
 
-### Timeline (code only, not in Figma yet)
+### Timeline (`Timeline step`, `2021:126`)
 *"What happens next" on screen 04.*
 
 | Prop | Values |
@@ -427,6 +428,7 @@ Section groups such as "Day" and "Drop-off time" are a column with gap `--space-
 - A 2px line joins the markers: `--color-brand` below a Done step, `--color-border` otherwise.
 - Animation: steps fade and slide up `--space-8`, 90ms apart, `--duration-slow` with `--ease-out`. Static with reduced motion.
 - Rendered as an `<ol>`; screen readers hear "(done)" and "(next)" after the step title.
+- Figma: `Timeline step` with `State` (Done, Next, Upcoming) and `Title`, `Detail` and `Show line` properties. Turn off Show line on the last step, and set its Text frame's bottom padding to 0.
 
 **Success mark animation in code** (ms from mount): 150 the circle springs in from 0.3, 350 the check draws itself, 450 a 2px brand ring ripples out to 1.6× and fades, 450 a burst of 8 dots (`--color-brand` and `--color-tag-text`) flies out 54px and fades.
 
@@ -437,7 +439,7 @@ Built from the same pieces as 03, with no new layout:
 - **Success mark** (pops in)
 - Header: "You're all set, {first name}!" / "Your repair is booked. See you {day} at {time}."
 - Summary: Service, Drop-off, Where, Price, Reference (for example `SPK-4821`)
-  - **In code** this is now a **Timeline** (Booked → Drop off {when} at {address} → We text you → Pick up and pay {price}), followed by a short Summary with only Service and Reference. Figma still shows the 5-row Summary.
+  - Now a **Timeline** (Booked → Drop off {when} at {address} → We text you → Pick up and pay {price}), followed by a short Summary with only Service and Reference. Same in Figma and code.
 - Button, Secondary, full width: "Add to calendar"
 - Note: "We've sent a confirmation to {phone}. Need to change it? Reply to the text."
 - Action bar: "Done"

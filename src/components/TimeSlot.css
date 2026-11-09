@@ -35,3 +35,60 @@
   opacity: var(--opacity-disabled);
   cursor: not-allowed;
 }
+
+/*
+ * "Fully booked" tooltip for Disabled slots (code only, not in Figma yet).
+ * It sits on a wrapper so it doesn't inherit the slot's 50% opacity.
+ * Shows on hover, on keyboard focus, and for a moment after a tap.
+ */
+.time-slot-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.time-slot__tooltip {
+  position: absolute;
+  bottom: calc(100% + var(--space-8));
+  left: 50%;
+  z-index: 2;
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--space-8);
+  background: var(--color-text-primary);
+  color: var(--color-surface);
+  font: var(--font-label-tag);
+  letter-spacing: var(--letter-spacing);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, var(--space-4));
+  transition:
+    opacity var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    visibility var(--duration-fast);
+}
+
+/* Small arrow pointing down at the slot */
+.time-slot__tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: calc(var(--space-4) * -1);
+  border: var(--space-4) solid transparent;
+  border-top-color: var(--color-text-primary);
+}
+
+.time-slot-wrap:hover .time-slot__tooltip,
+.time-slot--disabled:focus-visible + .time-slot__tooltip,
+.time-slot-wrap--tip-open .time-slot__tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .time-slot__tooltip {
+    transition: none;
+  }
+}
