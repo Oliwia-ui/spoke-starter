@@ -14,6 +14,8 @@
   --color-on-brand: #ffffff;
   --color-tag-background: #fcebe4;
   --color-tag-text: #b23e16;
+  /* Figma color/error: Input error state. 5.9:1 contrast on white. */
+  --color-error: #c81e1e;
 
   /* Spacing */
   --space-4: 4px;
@@ -47,4 +49,16 @@
 
   /* State */
   --opacity-disabled: 0.5;
+
+  /* Elevation and motion, used for the Service card hover.
+     Figma: effect style Elevation/Raised, and a 180ms Smart Animate
+     "While hovering" interaction on Service card State=Default.
+     The 4px lift is code only; Figma shows the shadow. */
+  --shadow-raised: 0 8px 20px rgb(26 26 26 / 0.1), 0 2px 6px rgb(26 26 26 / 0.06);
+  --lift-hover: calc(var(--space-4) * -1);
+  --duration-fast: 180ms;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  /* Success mark pop-in. Figma: Smart Animate, gentle spring, about 450ms. */
+  --duration-slow: 450ms;
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }

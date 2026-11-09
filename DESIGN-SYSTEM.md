@@ -38,6 +38,7 @@ These come from the Figma brief and `AGENTS.md`:
 | `color/on-brand` | `--color-on-brand` | `#ffffff` | Text on brand backgrounds |
 | `color/tag/background` | `--color-tag-background` | `#fcebe4` | Tag fill |
 | `color/tag/text` | `--color-tag-text` | `#b23e16` | Tag label |
+| `color/error` | `--color-error` | `#c81e1e` | Input error border and message |
 
 ### Spacing
 
@@ -104,6 +105,7 @@ The tokens live in [`src/styles/tokens.css`](src/styles/tokens.css), which is im
   --color-on-brand: #ffffff;
   --color-tag-background: #fcebe4;
   --color-tag-text: #b23e16;
+  --color-error: #c81e1e;
 
   /* Spacing */
   --space-4: 4px;
@@ -160,20 +162,36 @@ These live on the `Spoke starter kit` page in the `Components` section (3:25). B
 | Tag | `3:27` | [`Tag.tsx`](src/components/Tag.tsx) | ✅ Built |
 | Booking card (demo) | `3:34` | [`BookingCard.tsx`](src/components/BookingCard.tsx) | ✅ Built |
 | Booking card, sloppy (demo) | `4:6` | [`BookingCardSloppy.tsx`](src/components/BookingCardSloppy.tsx) | ✅ Built as-is, don't reuse |
-| Time slot | `6:14` | n/a | To do |
-| Input | `6:23` | n/a | To do |
-| Top bar | `6:24` | n/a | To do |
-| Service card | `11:33` | n/a | To do |
-| Summary row | `11:34` | n/a | To do |
-| Action bar | `11:37` | n/a | To do |
+| Time slot | `6:14` | [`TimeSlot.tsx`](src/components/TimeSlot.tsx) | ✅ Built |
+| Input | `6:23` | [`Input.tsx`](src/components/Input.tsx) | ✅ Built |
+| Top bar | `6:24` | [`TopBar.tsx`](src/components/TopBar.tsx) | ✅ Built |
+| Service card | `11:33` | [`ServiceCard.tsx`](src/components/ServiceCard.tsx) | ✅ Built |
+| Summary row | `11:34` | [`SummaryRow.tsx`](src/components/SummaryRow.tsx) | ✅ Built |
+| Action bar | `11:37` | [`ActionBar.tsx`](src/components/ActionBar.tsx) | ✅ Built |
+| Success mark | `2016:83` | [`SuccessMark.tsx`](src/components/SuccessMark.tsx) | ✅ Built |
+| Timeline step | `2021:126` | [`Timeline.tsx`](src/components/Timeline.tsx) | ✅ Built |
 
-| Screen | Figma node | Status |
-|---|---|---|
-| 01 Choose a service | `7:114` | To do (build first) |
-| 02 Pick a slot | `7:121` | To do |
-| 03 Confirm | `7:128` | To do |
+| Screen | Figma node | Code | Status |
+|---|---|---|---|
+| 01 Choose a service | `7:114` | [`ChooseService.tsx`](src/screens/ChooseService.tsx) | ✅ Built |
+| 02 Pick a slot | `7:121` | [`PickSlot.tsx`](src/screens/PickSlot.tsx) | ✅ Built |
+| 03 Confirm | `7:128` | [`Confirm.tsx`](src/screens/Confirm.tsx) | ✅ Built |
+| 04 Booked | `2017:77` | [`Booked.tsx`](src/screens/Booked.tsx) | ✅ Built |
 
 Update this table when you build something.
+
+**Component gallery:** run `npm run dev` and open **http://localhost:5173/#/components**. It shows every foundation (with the live values from `tokens.css`) and every component in every state, each linked to its Figma node so you can compare. When you add or change a component, add it to [`src/pages/ComponentGallery.tsx`](src/pages/ComponentGallery.tsx) too.
+
+**Code structure:**
+- `src/components/`: one file per Figma component, plus its `.css`.
+- `src/pages/ComponentGallery.tsx`: the gallery page above.
+- `src/screens/`: one file per Figma screen. `Screen.tsx` holds the shared layout (Top bar, scrolling Content, Action bar) and the Header, Section and Note pieces.
+- `src/data/booking.ts`: services, days and times from the brief and screen 02.
+- `src/App.tsx`: the flow state (step, service, day, time). The defaults match the Figma screens: Flat tyre repair, Today, 16:30.
+
+**Deliberate differences from Figma:**
+- Selected Service card, selected Time slot and focused Input keep the same outer size as the default state. In Figma they grow or shrink by 2px. Matching that would make the layout jump when you click.
+- Input focus comes from the browser's `:focus`, not a prop.
 
 ### Button (`3:33`)
 *"Primary for the main action on a card, Secondary for anything else."*
@@ -222,7 +240,8 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
 | Opacity | 1 | 1 | `0.5` |
 
 - Text style `Label/Field`, padding `--space-12` vertical, `--space-16` horizontal, radius `--radius-md`
-- **In code:** use a `<button>`. Set `aria-pressed` on Selected and `disabled` on Disabled.
+- **Fully booked tooltip (code only, not in Figma yet):** a Disabled slot shows a small dark tooltip, "Fully booked" (`--color-text-primary` background, `--color-surface` text, `Label/Tag`), above the slot on hover and keyboard focus, and for 2.5s after a tap. Disabled slots use `aria-disabled` (not `disabled`), so they stay focusable and screen readers hear the reason through `aria-describedby`. Change the text with `unavailableReason`.
+- **In code:** a `<button role="radio">` with `aria-checked`. Disabled uses `aria-disabled` and the tooltip above.
 
 ### Input (`6:23`)
 *"Text field with a label above it. Focus shows the brand border."*
@@ -239,7 +258,15 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
   - Default: 1px `--color-border`
   - Focus: 2px `--color-brand`
 - Placeholder and value: `Card/Body`, placeholder in `--color-text-muted`
+- The placeholder disappears as soon as the field is focused. In Figma, the Focus variant hides the placeholder (opacity 0, so the field keeps its height) and shows a 1×20 "Cursor" in `color/text/primary`.
 - **In code:** use a real `<label>` and `<input>` with matching `id` and `htmlFor`.
+
+**Error state** (`State=Error`, node `2009:76`, Figma text property "Error message"): pass `error="Enter your name"`.
+- Field: 2px `--color-error` border, which stays red while focused. The size doesn't change.
+- Message under the field: `Card/Caption`, `--color-error`, gap `--space-8`.
+- Sets `aria-invalid` and links the message with `aria-describedby`.
+- On screen 03, pressing **Confirm booking** with an empty name or phone shows "Enter your name" or "Enter your phone number" and focuses the first empty field. The error clears as soon as you type.
+- In Figma: a 2px inside stroke bound to `color/error`, and an "Error message" text layer in `Card/Caption`, also bound to `color/error`. The swatch is in Foundations, Colour.
 
 ### Top bar (`6:24`)
 *"Screen header with a back arrow, the flow title and the step counter."*
@@ -254,6 +281,22 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
 - Back icon: `src/assets/icons/chevron-left.svg` (24×24, stroke `#1a1a1a`, width 2). Use a `<button aria-label="Back">`.
 - Title: `Card/Title`, `--color-text-primary`, fills the remaining width
 - Step: `Card/Caption`, `--color-text-muted`
+- **Show back** (boolean, default on): turn it off on the last screen (04 Booked), where going back makes no sense. In code: `showBack={false}`.
+
+### Success mark (`2016:83`)
+*"Success signal at the top of the Booked screen. Start pops into Done automatically when the screen opens."*
+
+| Part | Value |
+|---|---|
+| Size | 80 × 80 |
+| Circle | `--color-tag-background` |
+| Check | 34 × 24, 4.5px round stroke, `--color-brand` |
+| States | `Start` (invisible) → `Burst` (circle, check, ripple ring at 1.3×, dots out) → `Done` (ring at 1.6× and dots faded out) |
+| Animation | Figma: Start → Burst after 150ms (Smart Animate, gentle spring, 350ms), Burst → Done straight after (ease out, 500ms). Code: see below |
+| Position | Centred horizontally on screen 04 (`<SuccessMark centered />`), with the header centred under it (`<ScreenHeader centered />`). The timeline, summary and note stay left-aligned like the other screens |
+
+- On the Figma canvas, screen 04 shows the mark in its invisible **Start** state. Press **Present** from screen 03 to see it pop in.
+- **In code** (`<SuccessMark />`): the circle springs in from 0.375 scale and fades in (`--duration-slow`, `--ease-spring`, 150ms delay), then the check draws itself. With `prefers-reduced-motion` it shows straight away without moving. It has `role="img"` and `aria-label="Booking confirmed"`. To replay it, change its `key`.
 
 ### Service card (`11:33`)
 *"One service in the list on screen 01. Selected marks the user's choice."*
@@ -272,6 +315,10 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
 - Description: `Card/Body`, `--color-text-muted`
 - Tags row: gap `--space-8`, contains one Tag (duration)
 - **In code:** make it selectable, either a `<button>` or a radio input styled as a card.
+
+**Hover** (`State=Hover`, node `2010:76`): an **unselected** card floats up `--lift-hover` (4px) with `--shadow-raised`, over `--duration-fast` (180ms) with `--ease-out`, and settles back when pressed. **The selected card doesn't float.**
+- Code: only on devices with a real hover (`@media (hover: hover)`). With `prefers-reduced-motion` the card doesn't move but keeps the shadow.
+- Figma: the effect style `Elevation/Raised` (0 8 20 at 10% `#1a1a1a`, plus 0 2 6 at 6%) is on the Hover variant. `State=Default` has a "While hovering" interaction, Change to Hover with Smart Animate, 180ms, bezier(0.2, 0, 0, 1). `State=Selected` has no interaction. The 4px lift exists only in code; Figma shows the shadow.
 
 ### Summary row (`11:34`)
 *"One line of the booking summary on screen 03."*
@@ -366,6 +413,40 @@ Section groups such as "Day" and "Drop-off time" are a column with gap `--space-
 
 ---
 
+### Timeline (`Timeline step`, `2021:126`)
+*"What happens next" on screen 04.*
+
+| Prop | Values |
+|---|---|
+| `label` | Section heading, for example "What happens next" |
+| `steps` | List of `{ title, detail, state }`, where state is `Done` \| `Next` \| `Upcoming` |
+| `delay` | ms before the first step appears, to follow other animations |
+
+- Heading: `Label/Field`, `--color-text-primary`. Gap `--space-12` to the list.
+- Each step: a 20px marker, then the title (`Label/Field`) and detail (`Card/Caption`, muted). Gap `--space-12`, `--space-16` between steps.
+- Markers: **Done** is a filled `--color-brand` dot with a `--color-on-brand` check. **Next** is a `--color-brand` ring. **Upcoming** is a `--color-border` ring, with the title in `--color-text-muted`.
+- A 2px line joins the markers: `--color-brand` below a Done step, `--color-border` otherwise.
+- Animation: steps fade and slide up `--space-8`, 90ms apart, `--duration-slow` with `--ease-out`. Static with reduced motion.
+- Rendered as an `<ol>`; screen readers hear "(done)" and "(next)" after the step title.
+- Figma: `Timeline step` with `State` (Done, Next, Upcoming) and `Title`, `Detail` and `Show line` properties. Turn off Show line on the last step, and set its Text frame's bottom padding to 0.
+
+**Success mark animation in code** (ms from mount): 150 the circle springs in from 0.3, 350 the check draws itself, 450 a 2px brand ring ripples out to 1.6× and fades, 450 a burst of 8 dots (`--color-brand` and `--color-tag-text`) flies out 54px and fades.
+
+### 04 Booked (`2017:77`)
+
+Built from the same pieces as 03, with no new layout:
+- Top bar: "Book a repair" / "Booked", **Show back off**
+- **Success mark** (pops in)
+- Header: "You're all set, {first name}!" / "Your repair is booked. See you {day} at {time}."
+- Summary: Service, Drop-off, Where, Price, Reference (for example `SPK-4821`)
+  - Now a **Timeline** (Booked → Drop off {when} at {address} → We text you → Pick up and pay {price}), followed by a short Summary with only Service and Reference. Same in Figma and code.
+- Button, Secondary, full width: "Add to calendar"
+- Note: "We've sent a confirmation to {phone}. Need to change it? Reply to the text."
+- Action bar: "Done"
+- Prototype: on 03, **Confirm booking** navigates to 04 (dissolve, 200ms).
+- **In code:** the header uses the first name typed on 03, and the title gets focus so screen readers announce it. **Add to calendar** downloads an `.ics` file (`src/data/calendar.ts`) for the drop-off, with the service length. The reference is made up in the browser (`makeReference()`). **Done** returns to screen 01.
+- **Still to decide:** the real shop address (now "Address to confirm", set in `shop` in `src/data/booking.ts`) and how real booking references are generated.
+
 ## 6. Content: services
 
 These come from the brief and are the single source of truth for data:
@@ -405,14 +486,16 @@ Use these with the Figma MCP (`get_design_context` with file key `KclDEc71ziHXMH
 | Button / Primary / Secondary | `3:33` / `3:29` / `3:31` |
 | Tag | `3:27` |
 | Time slot / Default / Selected / Disabled | `6:14` / `6:8` / `6:10` / `6:12` |
-| Input / Default / Focus | `6:23` / `6:15` / `6:19` |
+| Input / Default / Focus / Error | `6:23` / `6:15` / `6:19` / `2009:76` |
 | Top bar | `6:24` |
-| Service card / Default / Selected | `11:33` / `11:17` / `11:25` |
+| Service card / Default / Hover / Selected | `11:33` / `11:17` / `2010:76` / `11:25` |
 | Summary row | `11:34` |
 | Action bar | `11:37` |
 | Screen 01 Choose a service | `7:114` |
 | Screen 02 Pick a slot | `7:121` |
 | Screen 03 Confirm | `7:128` |
+| Screen 04 Booked | `2017:77` |
+| Success mark / Start / Done | `2016:83` / `2016:77` / `2016:80` |
 | Booking card (clean) | `3:34` |
 | Booking card (sloppy, for comparison) | `4:6` |
 

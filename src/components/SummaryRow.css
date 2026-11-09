@@ -1,0 +1,20 @@
+/* Figma "Summary row" (node 11:34) */
+.summary-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-16);
+  letter-spacing: var(--letter-spacing);
+  white-space: nowrap;
+}
+
+.summary-row__label {
+  font: var(--font-card-caption);
+  color: var(--color-text-muted);
+}
+
+.summary-row__value {
+  margin: 0;
+  font: var(--font-card-body);
+  color: var(--color-text-primary);
+}

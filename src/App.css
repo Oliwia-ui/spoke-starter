@@ -1,8 +1,7 @@
-.preview {
+/* Centres the 390px screen in the browser window. */
+.app {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  gap: 80px;
-  padding: 120px 16px;
+  min-height: 100svh;
 }

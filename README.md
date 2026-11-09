@@ -13,11 +13,14 @@ npm run dev
 
 The app runs at http://localhost:5173. Stop it with Ctrl+C.
 
+To check every component against Figma, open the component gallery at http://localhost:5173/#/components.
+
 ## What is in this repo
 
 | File | What it is for |
 |---|---|
 | `AGENTS.md` | The rules Codex and Claude read before every task. |
+| `DESIGN-SYSTEM.md` | Every token, component spec, screen and Figma node ID, plus the build status. |
 | `LOG.md` | Your process log for the assignment. Fill it in while you work. |
 | `REFLECTION.md` | Your reflection for the assignment. |
 | `src/` | The app. Tokens go in `src/styles/tokens.css`, components in `src/components/`. |
