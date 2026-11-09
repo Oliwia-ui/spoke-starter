@@ -2,6 +2,7 @@ import { ActionBar } from '../components/ActionBar'
 import { Button } from '../components/Button'
 import { SuccessMark } from '../components/SuccessMark'
 import { SummaryRow } from '../components/SummaryRow'
+import { Timeline } from '../components/Timeline'
 import { TopBar } from '../components/TopBar'
 import { dayToDate, formatPrice, shop, type Service } from '../data/booking'
 import { downloadIcs } from '../data/calendar'
@@ -56,11 +57,21 @@ export function Booked({ service, day, time, name, phone, reference, onDone }: B
         focusOnMount
       />
 
+      {/* Starts after the Success mark has drawn its check (about 800ms). */}
+      <Timeline
+        label="What happens next"
+        delay={700}
+        steps={[
+          { title: 'Booked', detail: `${service.title}, just now`, state: 'Done' },
+          { title: `Drop off ${when(day, time)}`, detail: shop.address, state: 'Next' },
+          { title: 'We text you', detail: 'When your bike is ready, same day', state: 'Upcoming' },
+          { title: 'Pick up and pay', detail: `${formatPrice(service.price)}, pay at pick-up`, state: 'Upcoming' },
+        ]}
+      />
+
+      {/* Drop-off, place and price now live in the timeline above. */}
       <dl className="summary">
         <SummaryRow label="Service" value={service.title} />
-        <SummaryRow label="Drop-off" value={`${day} at ${time}`} />
-        <SummaryRow label="Where" value={shop.address} />
-        <SummaryRow label="Price" value={`${formatPrice(service.price)}, pay at pick-up`} />
         <SummaryRow label="Reference" value={reference} />
       </dl>
 

@@ -8,6 +8,7 @@ import { ServiceCard } from '../components/ServiceCard'
 import { SummaryRow } from '../components/SummaryRow'
 import { SuccessMark } from '../components/SuccessMark'
 import { Tag } from '../components/Tag'
+import { Timeline } from '../components/Timeline'
 import { TimeSlot } from '../components/TimeSlot'
 import { TopBar } from '../components/TopBar'
 import './ComponentGallery.css'
@@ -96,6 +97,28 @@ function SuccessMarkDemo() {
   return (
     <div className="gallery-replay">
       <SuccessMark key={run} />
+      <Button label="Replay" variant="Secondary" onClick={() => setRun((n) => n + 1)} />
+    </div>
+  )
+}
+
+/** Timeline with a Replay button, so the staggered reveal plays again. */
+function TimelineDemo() {
+  const [run, setRun] = useState(0)
+  return (
+    <div className="gallery-replay gallery-replay--top">
+      <div className="gallery-fixed-width">
+        <Timeline
+          key={run}
+          label="What happens next"
+          steps={[
+            { title: 'Booked', detail: 'Flat tyre repair, just now', state: 'Done' },
+            { title: 'Drop off today at 16:30', detail: 'Address to confirm', state: 'Next' },
+            { title: 'We text you', detail: 'When your bike is ready, same day', state: 'Upcoming' },
+            { title: 'Pick up and pay', detail: '€15, pay at pick-up', state: 'Upcoming' },
+          ]}
+        />
+      </div>
       <Button label="Replay" variant="Secondary" onClick={() => setRun((n) => n + 1)} />
     </div>
   )
@@ -316,6 +339,15 @@ export function ComponentGallery() {
         >
           <Variant label="Start → Done">
             <SuccessMarkDemo />
+          </Variant>
+        </Entry>
+
+        <Entry
+          name="Timeline"
+          description="What happens next, on screen 04. Steps are Done, Next or Upcoming and fade in one after another. Code only, not in Figma yet."
+        >
+          <Variant label="Done, Next, Upcoming">
+            <TimelineDemo />
           </Variant>
         </Entry>
 

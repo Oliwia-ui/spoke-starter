@@ -1,0 +1,134 @@
+/*
+ * Timeline (code only, not in Figma yet).
+ * Markers are 20px circles on a 2px connecting line, in a 20px column.
+ */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  letter-spacing: var(--letter-spacing);
+}
+
+.timeline__label {
+  margin: 0;
+  font: var(--font-label-field);
+  color: var(--color-text-primary);
+}
+
+.timeline__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline__step {
+  position: relative;
+  display: flex;
+  gap: var(--space-12);
+  padding-bottom: var(--space-16);
+  animation: timeline-in var(--duration-slow) var(--ease-out) both;
+}
+
+.timeline__step:last-child {
+  padding-bottom: 0;
+}
+
+/* Connecting line from this marker down to the next one */
+.timeline__step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  bottom: 0;
+  left: 9px;
+  width: var(--border-width-strong);
+  background: var(--color-border);
+}
+
+/* The line below a Done step is brand-coloured: that part of the journey is complete */
+.timeline__step--done:not(:last-child)::before {
+  background: var(--color-brand);
+}
+
+.timeline__marker {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  border: var(--border-width-strong) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+}
+
+.timeline__step--done .timeline__marker {
+  border-color: var(--color-brand);
+  background: var(--color-brand);
+}
+
+.timeline__step--done .timeline__marker path {
+  fill: none;
+  stroke: var(--color-on-brand);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.timeline__step--next .timeline__marker {
+  border-color: var(--color-brand);
+}
+
+.timeline__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.timeline__title,
+.timeline__detail {
+  margin: 0;
+}
+
+.timeline__title {
+  font: var(--font-label-field);
+  color: var(--color-text-primary);
+}
+
+.timeline__step--upcoming .timeline__title {
+  color: var(--color-text-muted);
+}
+
+.timeline__detail {
+  font: var(--font-card-caption);
+  color: var(--color-text-muted);
+}
+
+@keyframes timeline-in {
+  from {
+    transform: translateY(var(--space-8));
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline__step {
+    animation: none;
+  }
+}
+
+/* Text only for screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

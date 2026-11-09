@@ -168,7 +168,8 @@ These live on the `Spoke starter kit` page in the `Components` section (3:25). B
 | Service card | `11:33` | [`ServiceCard.tsx`](src/components/ServiceCard.tsx) | ✅ Built |
 | Summary row | `11:34` | [`SummaryRow.tsx`](src/components/SummaryRow.tsx) | ✅ Built |
 | Action bar | `11:37` | [`ActionBar.tsx`](src/components/ActionBar.tsx) | ✅ Built |
-| Success mark | `2016:83` | [`SuccessMark.tsx`](src/components/SuccessMark.tsx) | ✅ Built |
+| Success mark | `2016:83` | [`SuccessMark.tsx`](src/components/SuccessMark.tsx) | ✅ Built. Code is now 80px with ripple and burst; Figma is still 64px |
+| Timeline | n/a | [`Timeline.tsx`](src/components/Timeline.tsx) | Code only, not in Figma yet |
 
 | Screen | Figma node | Code | Status |
 |---|---|---|---|
@@ -286,9 +287,9 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
 
 | Part | Value |
 |---|---|
-| Size | 64 × 64 |
+| Size | 80 × 80 in code (64 × 64 in Figma, to update) |
 | Circle | `--color-tag-background` |
-| Check | 3.5px round stroke, `--color-brand` |
+| Check | 34 × 24, 4.5px round stroke, `--color-brand` (Figma: 24 × 17, 3.5px) |
 | States | `Start` (circle 24px, invisible) → `Done` (circle 64px, visible) |
 | Animation | After 150ms, Smart Animate with a gentle spring, about 450ms |
 
@@ -410,6 +411,24 @@ Section groups such as "Day" and "Drop-off time" are a column with gap `--space-
 
 ---
 
+### Timeline (code only, not in Figma yet)
+*"What happens next" on screen 04.*
+
+| Prop | Values |
+|---|---|
+| `label` | Section heading, for example "What happens next" |
+| `steps` | List of `{ title, detail, state }`, where state is `Done` \| `Next` \| `Upcoming` |
+| `delay` | ms before the first step appears, to follow other animations |
+
+- Heading: `Label/Field`, `--color-text-primary`. Gap `--space-12` to the list.
+- Each step: a 20px marker, then the title (`Label/Field`) and detail (`Card/Caption`, muted). Gap `--space-12`, `--space-16` between steps.
+- Markers: **Done** is a filled `--color-brand` dot with a `--color-on-brand` check. **Next** is a `--color-brand` ring. **Upcoming** is a `--color-border` ring, with the title in `--color-text-muted`.
+- A 2px line joins the markers: `--color-brand` below a Done step, `--color-border` otherwise.
+- Animation: steps fade and slide up `--space-8`, 90ms apart, `--duration-slow` with `--ease-out`. Static with reduced motion.
+- Rendered as an `<ol>`; screen readers hear "(done)" and "(next)" after the step title.
+
+**Success mark animation in code** (ms from mount): 150 the circle springs in from 0.3, 350 the check draws itself, 450 a 2px brand ring ripples out to 1.6× and fades, 450 a burst of 8 dots (`--color-brand` and `--color-tag-text`) flies out 54px and fades.
+
 ### 04 Booked (`2017:77`)
 
 Built from the same pieces as 03, with no new layout:
@@ -417,6 +436,7 @@ Built from the same pieces as 03, with no new layout:
 - **Success mark** (pops in)
 - Header: "You're all set, {first name}!" / "Your repair is booked. See you {day} at {time}."
 - Summary: Service, Drop-off, Where, Price, Reference (for example `SPK-4821`)
+  - **In code** this is now a **Timeline** (Booked → Drop off {when} at {address} → We text you → Pick up and pay {price}), followed by a short Summary with only Service and Reference. Figma still shows the 5-row Summary.
 - Button, Secondary, full width: "Add to calendar"
 - Note: "We've sent a confirmation to {phone}. Need to change it? Reply to the text."
 - Action bar: "Done"
