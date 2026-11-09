@@ -168,13 +168,14 @@ These live on the `Spoke starter kit` page in the `Components` section (3:25). B
 | Service card | `11:33` | [`ServiceCard.tsx`](src/components/ServiceCard.tsx) | ✅ Built |
 | Summary row | `11:34` | [`SummaryRow.tsx`](src/components/SummaryRow.tsx) | ✅ Built |
 | Action bar | `11:37` | [`ActionBar.tsx`](src/components/ActionBar.tsx) | ✅ Built |
+| Success mark | `2016:83` | n/a | Designed in Figma, to build |
 
 | Screen | Figma node | Code | Status |
 |---|---|---|---|
 | 01 Choose a service | `7:114` | [`ChooseService.tsx`](src/screens/ChooseService.tsx) | ✅ Built |
 | 02 Pick a slot | `7:121` | [`PickSlot.tsx`](src/screens/PickSlot.tsx) | ✅ Built |
 | 03 Confirm | `7:128` | [`Confirm.tsx`](src/screens/Confirm.tsx) | ✅ Built |
-| Booked (not in Figma) | n/a | [`Booked.tsx`](src/screens/Booked.tsx) | Placeholder end of flow |
+| 04 Booked | `2017:77` | [`Booked.tsx`](src/screens/Booked.tsx) | Designed in Figma. Code is still the old placeholder, to update |
 
 Update this table when you build something.
 
@@ -190,7 +191,6 @@ Update this table when you build something.
 **Deliberate differences from Figma:**
 - Selected Service card, selected Time slot and focused Input keep the same outer size as the default state. In Figma they grow or shrink by 2px. Matching that would make the layout jump when you click.
 - Input focus comes from the browser's `:focus`, not a prop.
-- The Booked screen isn't designed in Figma. It reuses existing components only.
 
 ### Button (`3:33`)
 *"Primary for the main action on a card, Secondary for anything else."*
@@ -279,6 +279,21 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
 - Back icon: `src/assets/icons/chevron-left.svg` (24×24, stroke `#1a1a1a`, width 2). Use a `<button aria-label="Back">`.
 - Title: `Card/Title`, `--color-text-primary`, fills the remaining width
 - Step: `Card/Caption`, `--color-text-muted`
+- **Show back** (boolean, default on): turn it off on the last screen (04 Booked), where going back makes no sense. In code, leave out `onBack` to hide the arrow.
+
+### Success mark (`2016:83`)
+*"Success signal at the top of the Booked screen. Start pops into Done automatically when the screen opens."*
+
+| Part | Value |
+|---|---|
+| Size | 64 × 64 |
+| Circle | `--color-tag-background` |
+| Check | 3.5px round stroke, `--color-brand` |
+| States | `Start` (circle 24px, invisible) → `Done` (circle 64px, visible) |
+| Animation | After 150ms, Smart Animate with a gentle spring, about 450ms |
+
+- On the Figma canvas, screen 04 shows the mark in its invisible **Start** state. Press **Present** from screen 03 to see it pop in.
+- **In code:** scale from about 0.4 and fade in, with a soft overshoot. With `prefers-reduced-motion`, show it straight away without moving. Give it `role="img"` and `aria-label="Booking confirmed"`.
 
 ### Service card (`11:33`)
 *"One service in the list on screen 01. Selected marks the user's choice."*
@@ -395,6 +410,19 @@ Section groups such as "Day" and "Drop-off time" are a column with gap `--space-
 
 ---
 
+### 04 Booked (`2017:77`)
+
+Built from the same pieces as 03, with no new layout:
+- Top bar: "Book a repair" / "Booked", **Show back off**
+- **Success mark** (pops in)
+- Header: "You're all set, {first name}!" / "Your repair is booked. See you {day} at {time}."
+- Summary: Service, Drop-off, Where, Price, Reference (for example `SPK-4821`)
+- Button, Secondary, full width: "Add to calendar"
+- Note: "We've sent a confirmation to {phone}. Need to change it? Reply to the text."
+- Action bar: "Done"
+- Prototype: on 03, **Confirm booking** navigates to 04 (dissolve, 200ms).
+- **Still to decide:** the real shop address (now "Address to confirm") and how booking references are generated.
+
 ## 6. Content: services
 
 These come from the brief and are the single source of truth for data:
@@ -442,6 +470,8 @@ Use these with the Figma MCP (`get_design_context` with file key `KclDEc71ziHXMH
 | Screen 01 Choose a service | `7:114` |
 | Screen 02 Pick a slot | `7:121` |
 | Screen 03 Confirm | `7:128` |
+| Screen 04 Booked | `2017:77` |
+| Success mark / Start / Done | `2016:83` / `2016:77` / `2016:80` |
 | Booking card (clean) | `3:34` |
 | Booking card (sloppy, for comparison) | `4:6` |
 
