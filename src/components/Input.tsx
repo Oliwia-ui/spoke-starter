@@ -8,8 +8,8 @@ import './Input.css'
  * States:
  * - Default / Focus: from Figma. In the app, Focus comes from the browser's
  *   :focus. `state="Focus"` forces the look for previews such as the gallery.
- * - Error: not in Figma yet. Pass an `error` message to show a red border and
- *   the message under the field.
+ * - Error (2009:76): pass an `error` message to show a red border and the
+ *   message under the field. Figma property: "Error message".
  */
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string

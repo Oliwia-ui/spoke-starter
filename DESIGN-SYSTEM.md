@@ -38,7 +38,7 @@ These come from the Figma brief and `AGENTS.md`:
 | `color/on-brand` | `--color-on-brand` | `#ffffff` | Text on brand backgrounds |
 | `color/tag/background` | `--color-tag-background` | `#fcebe4` | Tag fill |
 | `color/tag/text` | `--color-tag-text` | `#b23e16` | Tag label |
-| *not in Figma yet* | `--color-error` | `#c81e1e` | Input error border and message. Add it to Figma as `color/error`. |
+| `color/error` | `--color-error` | `#c81e1e` | Input error border and message |
 
 ### Spacing
 
@@ -188,7 +188,6 @@ Update this table when you build something.
 - `src/App.tsx`: the flow state (step, service, day, time). The defaults match the Figma screens: Flat tyre repair, Today, 16:30.
 
 **Deliberate differences from Figma:**
-- Input has an Error state and there's a `--color-error` token. Neither exists in Figma yet (see Input below).
 - Selected Service card, selected Time slot and focused Input keep the same outer size as the default state. In Figma they grow or shrink by 2px. Matching that would make the layout jump when you click.
 - Input focus comes from the browser's `:focus`, not a prop.
 - The Booked screen isn't designed in Figma. It reuses existing components only.
@@ -259,12 +258,12 @@ Code usage: `<Button label="Continue" variant="Primary" fullWidth onClick={...} 
 - Placeholder and value: `Card/Body`, placeholder in `--color-text-muted`
 - **In code:** use a real `<label>` and `<input>` with matching `id` and `htmlFor`.
 
-**Error state (code only, not in Figma yet):** pass `error="Enter your name"`.
+**Error state** (`State=Error`, node `2009:76`, Figma text property "Error message"): pass `error="Enter your name"`.
 - Field: 2px `--color-error` border, which stays red while focused. The size doesn't change.
 - Message under the field: `Card/Caption`, `--color-error`, gap `--space-8`.
 - Sets `aria-invalid` and links the message with `aria-describedby`.
 - On screen 03, pressing **Confirm booking** with an empty name or phone shows "Enter your name" or "Enter your phone number" and focuses the first empty field. The error clears as soon as you type.
-- To match in Figma: add a `State=Error` variant to the Input component and a `color/error` variable.
+- In Figma: a 2px inside stroke bound to `color/error`, and an "Error message" text layer in `Card/Caption`, also bound to `color/error`. The swatch is in Foundations, Colour.
 
 ### Top bar (`6:24`)
 *"Screen header with a back arrow, the flow title and the step counter."*
@@ -430,7 +429,7 @@ Use these with the Figma MCP (`get_design_context` with file key `KclDEc71ziHXMH
 | Button / Primary / Secondary | `3:33` / `3:29` / `3:31` |
 | Tag | `3:27` |
 | Time slot / Default / Selected / Disabled | `6:14` / `6:8` / `6:10` / `6:12` |
-| Input / Default / Focus | `6:23` / `6:15` / `6:19` |
+| Input / Default / Focus / Error | `6:23` / `6:15` / `6:19` / `2009:76` |
 | Top bar | `6:24` |
 | Service card / Default / Selected | `11:33` / `11:17` / `11:25` |
 | Summary row | `11:34` |

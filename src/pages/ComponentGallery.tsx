@@ -37,7 +37,7 @@ const colours = [
   { token: '--color-on-brand', figma: 'color/on-brand' },
   { token: '--color-tag-background', figma: 'color/tag/background' },
   { token: '--color-tag-text', figma: 'color/tag/text' },
-  { token: '--color-error', figma: 'Not in Figma yet' },
+  { token: '--color-error', figma: 'color/error' },
 ]
 
 const typeStyles = [
@@ -225,7 +225,7 @@ export function ComponentGallery() {
         <Entry
           name="Input"
           nodeId="6:23"
-          description="Text field with a label above it. Focus shows the brand border. Error (not in Figma yet) shows when a required field is left empty."
+          description="Text field with a label above it. Focus shows the brand border. Error shows the error border and a message, for an empty or invalid required field."
         >
           <Variant label="Default">
             <div className="gallery-fixed-width">
@@ -237,14 +237,18 @@ export function ComponentGallery() {
               <Input label="Your name" placeholder="First and last name" state="Focus" />
             </div>
           </Variant>
-          <Variant label="Error (not in Figma)">
+          <Variant label="Error">
             <div className="gallery-fixed-width">
               <Input label="Your name" placeholder="First and last name" error="Enter your name" />
             </div>
           </Variant>
         </Entry>
 
-        <Entry name="Service card" nodeId="11:33" description="One service in the list on screen 01. Selected marks the user's choice.">
+        <Entry
+          name="Service card"
+          nodeId="11:33"
+          description="One service in the list on screen 01. Selected marks the user's choice. Hover over a card: it floats up (code only, not in Figma yet)."
+        >
           <Variant label="Default">
             <div className="gallery-fixed-width">
               <ServiceCard

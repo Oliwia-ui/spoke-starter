@@ -14,7 +14,7 @@
   --color-on-brand: #ffffff;
   --color-tag-background: #fcebe4;
   --color-tag-text: #b23e16;
-  /* Not in Figma yet: added for the Input error state. 5.9:1 contrast on white. */
+  /* Figma color/error: Input error state. 5.9:1 contrast on white. */
   --color-error: #c81e1e;
 
   /* Spacing */
@@ -49,4 +49,10 @@
 
   /* State */
   --opacity-disabled: 0.5;
+
+  /* Elevation and motion: code only, not in Figma yet. Used for hover. */
+  --shadow-raised: 0 8px 20px rgb(26 26 26 / 0.1), 0 2px 6px rgb(26 26 26 / 0.06);
+  --lift-hover: calc(var(--space-4) * -1);
+  --duration-fast: 180ms;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
 }

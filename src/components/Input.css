@@ -43,7 +43,7 @@
   border: var(--border-width-strong) solid var(--color-brand);
 }
 
-/* Error (not in Figma yet): red border, stays red while focused. */
+/* State=Error (2009:76): red border, stays red while focused. */
 .input__field--error,
 .input__field--error:focus {
   border-color: var(--color-error);

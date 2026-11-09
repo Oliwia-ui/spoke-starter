@@ -31,6 +31,38 @@
   outline-offset: var(--border-width-strong);
 }
 
+/*
+ * Hover (code only, not in Figma yet): the card floats up 4px with a soft
+ * shadow, and settles back down when pressed. Only on devices with a real
+ * hover (mouse or trackpad), so it doesn't stick on touch screens.
+ */
+@media (hover: hover) {
+  .service-card {
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .service-card:hover {
+    transform: translateY(var(--lift-hover));
+    box-shadow: var(--shadow-raised);
+  }
+
+  .service-card:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+}
+
+/* Reduced motion: keep the shadow so hover is still visible, but don't move. */
+@media (prefers-reduced-motion: reduce) {
+  .service-card,
+  .service-card:hover {
+    transition: none;
+    transform: none;
+  }
+}
+
 .service-card__header {
   display: flex;
   align-items: center;
